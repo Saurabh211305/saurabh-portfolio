@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0a0a0c;
+  --ink-soft: #131316;
+  --ink-elevated: #1d1d22;
+  --paper: #faf9f7;
+  --paper-dim: #f0eee9;
+  --surface: #ffffff;
+  --text-dark: #0a0a0c;
+  --text-light: #f5f4f2;
+  --muted-on-dark: #9a9aa2;
+  --muted-on-light: #5c5c63;
+  --signal: #ff4d2e;
+  --signal-deep: #d43a1f;
+  --signal-soft: #ffcabb;
+  /* AA-safe (5.3:1 on --paper) variant of --signal for small text on light backgrounds;
+     --signal itself only clears AA at large-text sizes (>=24px) or on dark backgrounds. */
+  --signal-ink: #c23319;
+  --line-dark: rgba(245, 244, 242, 0.12);
+  --line-light: rgba(10, 10, 12, 0.1);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-elevated: var(--ink-elevated);
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+  --color-surface: var(--surface);
+  --color-signal: var(--signal);
+  --color-signal-deep: var(--signal-deep);
+  --color-signal-soft: var(--signal-soft);
+  --color-signal-ink: var(--signal-ink);
+  --color-text-dark: var(--text-dark);
+  --color-text-light: var(--text-light);
+  --color-muted-on-dark: var(--muted-on-dark);
+  --color-muted-on-light: var(--muted-on-light);
+  --color-line-dark: var(--line-dark);
+  --color-line-light: var(--line-light);
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono-data);
+}
+
+body {
+  background: var(--paper);
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--text-light);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--signal) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--signal);
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.text-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.container-fluid {
+  width: 100%;
+  max-width: 1560px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
+}
+
+.section-dark {
+  background: var(--ink);
+  color: var(--text-light);
+}
+
+.section-light {
+  background: var(--paper);
+  color: var(--text-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
