@@ -21,7 +21,7 @@ export function TrustedBy() {
   const marqueeItems = [...clients, ...clients];
 
   return (
-    <section className="section-light overflow-hidden border-b border-line-light py-14">
+    <section className="section-light relative overflow-hidden border-b border-line-light py-14">
       <div className="container-fluid">
         <Reveal>
           <p className="text-eyebrow text-center text-muted-on-light">
@@ -31,21 +31,21 @@ export function TrustedBy() {
       </div>
 
       <div className="relative mt-10 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-        <div className="animate-marquee flex shrink-0 items-center gap-16 pr-16">
+        <div className="animate-marquee flex shrink-0 items-center gap-14 pr-14">
           {marqueeItems.map((name, i) => (
             <span
               key={`${name}-${i}`}
-              className="font-display shrink-0 text-2xl text-ink/35 whitespace-nowrap"
+              className="font-display shrink-0 whitespace-nowrap text-2xl italic text-ink/30"
             >
               {name}
             </span>
           ))}
         </div>
-        <div className="animate-marquee flex shrink-0 items-center gap-16 pr-16" aria-hidden>
+        <div className="animate-marquee flex shrink-0 items-center gap-14 pr-14" aria-hidden>
           {marqueeItems.map((name, i) => (
             <span
               key={`dup-${name}-${i}`}
-              className="font-display shrink-0 text-2xl text-ink/35 whitespace-nowrap"
+              className="font-display shrink-0 whitespace-nowrap text-2xl italic text-ink/30"
             >
               {name}
             </span>
@@ -59,7 +59,7 @@ export function TrustedBy() {
           to { transform: translateX(-100%); }
         }
         .animate-marquee {
-          animation: marquee 32s linear infinite;
+          animation: marquee 34s linear infinite;
         }
         @media (prefers-reduced-motion: reduce) {
           .animate-marquee { animation: none; }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/data/caseStudies";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -16,21 +17,30 @@ export default function CaseStudiesPage() {
     <div className="section-dark min-h-screen pb-28 pt-40">
       <div className="container-fluid">
         <Reveal>
-          <p className="text-eyebrow text-signal">All case studies</p>
-          <h1 className="font-display mt-4 max-w-2xl text-[clamp(2.2rem,5vw,4rem)] leading-tight">
-            Every number on this site traces back to one of these programmes.
-          </h1>
+          <p className="text-eyebrow text-signal">All case files</p>
         </Reveal>
+        <SplitReveal
+          as="h1"
+          className="font-display mt-4 max-w-2xl text-[clamp(2.2rem,5.5vw,4.4rem)] leading-tight text-text-light"
+        >
+          Every number on this site traces back to one of these programmes.
+        </SplitReveal>
 
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((cs, i) => (
             <Reveal key={cs.slug} delay={i * 0.06}>
               <Link
                 href={`/case-studies/${cs.slug}`}
-                className="group flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-ink-soft p-8"
+                data-cursor-text="Open"
+                className="reticle group flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-ink-soft p-8"
               >
                 <div>
-                  <span className="text-eyebrow text-muted-on-dark">{cs.industry}</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-index text-xs text-muted-on-dark">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-eyebrow text-muted-on-dark">{cs.industry}</span>
+                  </div>
                   <h2 className="font-display mt-4 text-xl leading-snug text-text-light">
                     {cs.headline}
                   </h2>

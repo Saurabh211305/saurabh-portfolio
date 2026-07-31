@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { cn } from "@/lib/utils";
 
 const industryModels = [
@@ -34,17 +35,20 @@ export function RoiCalculator() {
     <section className="section-light py-28">
       <div className="container-fluid">
         <Reveal>
-          <p className="text-eyebrow text-signal-ink">ROI calculator</p>
-          <h2 className="font-display mt-4 max-w-2xl text-[clamp(2rem,4vw,3.2rem)] leading-tight">
+          <p className="text-eyebrow text-signal-ink">Diagnostic instrument</p>
+          <SplitReveal
+            as="h2"
+            className="font-display mt-4 max-w-2xl text-[clamp(2rem,4.5vw,3.4rem)] leading-tight"
+          >
             What could this budget actually return?
-          </h2>
+          </SplitReveal>
           <p className="mt-4 max-w-xl text-muted-on-light">
             Modelled directly on the real cost-per-lead and ROAS figures from the
             case studies above — not generic industry benchmarks.
           </p>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-14 grid grid-cols-1 gap-10 rounded-3xl border border-ink/10 bg-surface p-8 md:p-12 lg:grid-cols-2">
+        <Reveal delay={0.15} className="reticle mt-14 grid grid-cols-1 gap-10 rounded-3xl border border-ink/10 bg-surface p-8 md:p-12 lg:grid-cols-2">
           <div>
             <p className="text-eyebrow text-muted-on-light">Industry</p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -92,7 +96,18 @@ export function RoiCalculator() {
             </p>
           </div>
 
-          <div className="flex flex-col justify-center gap-6 rounded-2xl bg-ink p-8 text-text-light">
+          <div className="relative flex flex-col justify-center gap-6 overflow-hidden rounded-2xl bg-ink p-8 text-text-light">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-24 animate-scan bg-gradient-to-b from-signal/15 to-transparent"
+            />
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+              </span>
+              <span className="text-eyebrow text-muted-on-dark">Live readout</span>
+            </div>
             <div>
               <p className="text-eyebrow text-muted-on-dark">Estimated qualified leads / month</p>
               <p className="font-mono-data mt-2 text-4xl text-signal">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 const pillars = [
   {
@@ -28,9 +29,12 @@ export function AboutJourney() {
       <div className="container-fluid grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1.1fr]">
         <Reveal>
           <p className="text-eyebrow text-signal">About</p>
-          <h2 className="font-display mt-4 text-[clamp(2rem,4vw,3.2rem)] leading-tight">
+          <SplitReveal
+            as="h2"
+            className="font-display mt-4 text-[clamp(2rem,4.5vw,3.4rem)] leading-tight"
+          >
             The AdSurgeon
-          </h2>
+          </SplitReveal>
           <p className="mt-6 max-w-md text-muted-on-dark">
             I help businesses reach their full potential by building a brand
             identity that&apos;s authentic and reflective of who they are. Every

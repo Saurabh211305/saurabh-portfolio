@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
+import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Counter } from "@/components/motion/Counter";
 
 const uaeStats = [
@@ -16,9 +18,12 @@ export function InternationalExperience() {
       <div className="container-fluid grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <Reveal>
           <p className="text-eyebrow text-signal-ink">International experience</p>
-          <h2 className="font-display mt-4 text-[clamp(2rem,4vw,3.2rem)] leading-tight">
+          <SplitReveal
+            as="h2"
+            className="font-display mt-4 text-[clamp(2rem,4vw,3.2rem)] leading-tight"
+          >
             Beyond India — running real estate media in Dubai&apos;s most competitive market.
-          </h2>
+          </SplitReveal>
           <p className="mt-6 max-w-lg text-muted-on-light">
             For Haus &amp; Haus Group and other UAE developers, campaigns spanned
             Emaar, Aldar and Sobha communities across Meta and Google — competing
@@ -38,8 +43,8 @@ export function InternationalExperience() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15} className="relative">
-          <div className="overflow-hidden rounded-3xl border border-ink/10 shadow-2xl shadow-ink/10">
+        <div className="relative">
+          <ClipReveal className="reticle rounded-3xl border border-ink/10 shadow-2xl shadow-ink/10">
             <Image
               src="/images/dashboards/dubai-results-june.webp"
               alt="Meta Ads Manager results for a Dubai real estate client showing lead volume across Emaar, Aldar and Sobha campaigns"
@@ -48,11 +53,11 @@ export function InternationalExperience() {
               className="h-auto w-full"
               sizes="(min-width: 1024px) 45vw, 90vw"
             />
-          </div>
+          </ClipReveal>
           <span className="absolute -bottom-5 -left-5 hidden rounded-full bg-ink px-5 py-3 text-xs font-semibold text-white shadow-xl md:block">
             Dubai, UAE — live reporting
           </span>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

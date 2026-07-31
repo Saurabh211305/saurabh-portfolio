@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { expertise, industries } from "@/data/metrics";
 import { site } from "@/lib/site";
 
@@ -18,10 +19,14 @@ export default function AboutPage() {
         <div className="container-fluid">
           <Reveal>
             <p className="text-eyebrow text-signal">About</p>
-            <h1 className="font-display mt-4 max-w-3xl text-[clamp(2.2rem,5vw,4rem)] leading-tight">
-              I help businesses reach their full potential with a brand identity
-              that&apos;s authentic to who they are.
-            </h1>
+          </Reveal>
+          <SplitReveal
+            as="h1"
+            className="font-display mt-4 max-w-3xl text-[clamp(2.2rem,5.5vw,4.4rem)] leading-tight text-text-light"
+          >
+            I help businesses reach their full potential with a brand identity that&apos;s authentic to who they are.
+          </SplitReveal>
+          <Reveal delay={0.2}>
             <p className="mt-6 max-w-2xl text-muted-on-dark">
               Every brand comes with its own unique challenges, and hence
               requires its own expertise. I combine data insights with design
@@ -53,7 +58,7 @@ export default function AboutPage() {
                 "Fresh ideas shape the future, add value, and signal change — blending strategy, design, and engaging experience into one system.",
             },
           ].map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.1} className="rounded-3xl border border-ink/10 bg-surface p-8">
+            <Reveal key={item.title} delay={i * 0.1} className="reticle rounded-3xl border border-ink/10 bg-surface p-8">
               <h2 className="font-display text-2xl">{item.title}</h2>
               <p className="mt-3 text-muted-on-light">{item.detail}</p>
             </Reveal>

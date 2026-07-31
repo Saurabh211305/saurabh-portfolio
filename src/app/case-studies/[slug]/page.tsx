@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/data/caseStudies";
 import { testimonials } from "@/data/testimonials";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { site } from "@/lib/site";
 
@@ -35,7 +36,8 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const study = caseStudies.find((cs) => cs.slug === slug);
+  const studyIndex = caseStudies.findIndex((cs) => cs.slug === slug);
+  const study = caseStudies[studyIndex];
   if (!study) notFound();
 
   const relatedTestimonial = testimonials.find((t) =>
@@ -65,18 +67,28 @@ export default async function CaseStudyPage({
             <ArrowLeft className="h-4 w-4" /> Back to case studies
           </Link>
 
-          <p className="text-eyebrow mt-8 text-signal">{study.industry}</p>
-          <h1 className="font-display mt-4 max-w-3xl text-[clamp(2rem,5vw,3.6rem)] leading-tight">
+          <div className="mt-8 flex items-center gap-4">
+            <span className="text-index text-xs text-muted-on-dark">
+              CASE FILE / {String(studyIndex + 1).padStart(2, "0")}
+            </span>
+            <span className="text-eyebrow text-signal">{study.industry}</span>
+          </div>
+          <SplitReveal
+            as="h1"
+            className="font-display mt-4 max-w-3xl text-[clamp(2rem,5.5vw,4rem)] leading-tight text-text-light"
+          >
             {study.headline}
-          </h1>
-          <p className="mt-6 max-w-2xl text-muted-on-dark">{study.summary}</p>
+          </SplitReveal>
+          <Reveal delay={0.15}>
+            <p className="mt-6 max-w-2xl text-muted-on-dark">{study.summary}</p>
+          </Reveal>
 
-          <div className="mt-14 grid grid-cols-2 gap-6 border-t border-line-dark pt-10 md:grid-cols-4">
-            {study.metrics.map((m) => (
-              <div key={m.label}>
+          <div className="reticle mt-14 grid grid-cols-2 gap-6 border-t border-line-dark pt-10 md:grid-cols-4">
+            {study.metrics.map((m, i) => (
+              <Reveal key={m.label} delay={0.2 + i * 0.06}>
                 <p className="font-mono-data text-2xl text-signal sm:text-3xl">{m.value}</p>
                 <p className="mt-2 text-xs text-muted-on-dark">{m.label}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

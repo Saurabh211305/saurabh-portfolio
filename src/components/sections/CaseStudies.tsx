@@ -3,19 +3,24 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { caseStudies } from "@/data/caseStudies";
 
 export function CaseStudies() {
   return (
-    <section id="case-studies" className="section-dark py-28">
-      <div className="container-fluid">
+    <section id="case-studies" className="section-dark relative py-28">
+      <div className="bg-grid pointer-events-none absolute inset-0 text-white/[0.03]" aria-hidden />
+      <div className="container-fluid relative">
         <Reveal>
-          <p className="text-eyebrow text-signal">Featured case studies</p>
-          <h2 className="font-display mt-4 max-w-2xl text-[clamp(2rem,4vw,3.2rem)] leading-tight">
-            Six real programmes. Real budgets, real ROAS, real revenue.
-          </h2>
+          <p className="text-eyebrow text-signal">Case files</p>
         </Reveal>
+        <SplitReveal
+          as="h2"
+          className="font-display mt-4 max-w-2xl text-[clamp(2rem,4.5vw,3.4rem)] leading-tight text-text-light"
+        >
+          Six real programmes. Real budgets, real ROAS, real revenue.
+        </SplitReveal>
 
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((cs, i) => (
@@ -23,12 +28,13 @@ export function CaseStudies() {
               <TiltCard>
                 <Link
                   href={`/case-studies/${cs.slug}`}
-                  className="group flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-ink-soft p-8"
+                  data-cursor-text="Open"
+                  className="reticle group flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-ink-soft p-8"
                 >
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-xs font-semibold text-white/70">
-                        {cs.logoInitial}
+                      <span className="text-index text-xs text-muted-on-dark">
+                        CASE FILE / {String(i + 1).padStart(2, "0")}
                       </span>
                       <span className="text-eyebrow text-muted-on-dark">{cs.industry}</span>
                     </div>

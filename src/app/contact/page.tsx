@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, Phone, Calendar } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { LinkedinIcon } from "@/components/icons/LinkedinIcon";
 import { site } from "@/lib/site";
@@ -25,9 +26,14 @@ export default function ContactPage() {
         <div>
           <Reveal>
             <p className="text-eyebrow text-signal">Get in touch</p>
-            <h1 className="font-display mt-4 text-[clamp(2.2rem,5vw,3.6rem)] leading-tight">
-              Let&apos;s see what precision can do for your budget.
-            </h1>
+          </Reveal>
+          <SplitReveal
+            as="h1"
+            className="font-display mt-4 text-[clamp(2.2rem,5.5vw,3.8rem)] leading-tight text-text-light"
+          >
+            Let&apos;s see what precision can do for your budget.
+          </SplitReveal>
+          <Reveal delay={0.15}>
             <p className="mt-6 max-w-md text-muted-on-dark">
               Fill out the form, or reach out directly — whichever is faster
               for you.
@@ -56,7 +62,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <Reveal delay={0.15} className="rounded-3xl bg-paper p-8 text-ink md:p-12">
+        <Reveal delay={0.15} className="reticle rounded-3xl bg-paper p-8 text-ink md:p-12">
           <ContactForm />
         </Reveal>
       </div>

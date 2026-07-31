@@ -47,10 +47,12 @@ export function ThoughtLeadership() {
                 href={site.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full flex-col justify-between rounded-3xl border border-ink/10 bg-surface p-8 transition-colors hover:border-signal/50"
+                data-cursor-text="Read"
+                className="reticle group flex h-full flex-col justify-between rounded-3xl border border-ink/10 bg-surface p-8 transition-colors hover:border-signal/50"
               >
                 <div>
-                  <p className="text-eyebrow text-muted-on-light">{topic.tag}</p>
+                  <span className="text-index text-xs text-signal-ink">0{i + 1}</span>
+                  <p className="text-eyebrow mt-3 text-muted-on-light">{topic.tag}</p>
                   <h3 className="font-display mt-4 text-xl leading-snug">{topic.title}</h3>
                 </div>
                 <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-ink transition-transform group-hover:translate-x-1">

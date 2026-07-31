@@ -1,24 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0a0a0c;
-  --ink-soft: #131316;
-  --ink-elevated: #1d1d22;
-  --paper: #faf9f7;
-  --paper-dim: #f0eee9;
+  --ink: #050505;
+  --ink-soft: #0e0e10;
+  --ink-elevated: #18181b;
+  --paper: #f7f6f2;
+  --paper-dim: #ebe8e1;
   --surface: #ffffff;
-  --text-dark: #0a0a0c;
-  --text-light: #f5f4f2;
-  --muted-on-dark: #9a9aa2;
-  --muted-on-light: #5c5c63;
-  --signal: #ff4d2e;
-  --signal-deep: #d43a1f;
-  --signal-soft: #ffcabb;
-  /* AA-safe (5.3:1 on --paper) variant of --signal for small text on light backgrounds;
-     --signal itself only clears AA at large-text sizes (>=24px) or on dark backgrounds. */
-  --signal-ink: #c23319;
-  --line-dark: rgba(245, 244, 242, 0.12);
-  --line-light: rgba(10, 10, 12, 0.1);
+  --text-dark: #050505;
+  --text-light: #f7f6f2;
+  --muted-on-dark: #8f8f96;
+  --muted-on-light: #55555c;
+
+  /* Incision red — a single accent, three contrast-tuned roles (see README):
+     --signal: bright, decorative + large text + dark-bg text (4.7:1 on ink).
+     --signal-deep: button backgrounds with white labels (5.7:1).
+     --signal-ink: small text on light backgrounds (8.4:1). */
+  --signal: #e8302a;
+  --signal-deep: #c81e3a;
+  --signal-ink: #8f1822;
+  --signal-soft: #f5b8ac;
+
+  --line-dark: rgba(247, 246, 242, 0.12);
+  --line-light: rgba(5, 5, 5, 0.1);
 }
 
 @theme inline {
@@ -38,7 +42,7 @@
   --color-muted-on-light: var(--muted-on-light);
   --color-line-dark: var(--line-dark);
   --color-line-light: var(--line-light);
-  --font-display: var(--font-bricolage);
+  --font-display: var(--font-fraunces);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-mono-data);
 }
@@ -47,7 +51,7 @@ body {
   background: var(--paper);
   color: var(--text-dark);
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -77,6 +81,7 @@ body {
 
 .font-display {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
 }
 
 .font-mono-data {
@@ -85,11 +90,18 @@ body {
 }
 
 .text-eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.26em;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+/* "case-file" style index label — 001, 002, etc. */
+.text-index {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
 }
 
 .container-fluid {
@@ -107,6 +119,71 @@ body {
 .section-light {
   background: var(--paper);
   color: var(--text-dark);
+}
+
+/* Reticle / crosshair corner-bracket framing device — the recurring
+   "precision instrument" motif tying chrome to the AdSurgeon concept. */
+.reticle {
+  position: relative;
+}
+.reticle::before,
+.reticle::after,
+.reticle > .reticle-tr,
+.reticle > .reticle-bl {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+.reticle::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1.5px solid currentColor;
+  border-left: 1.5px solid currentColor;
+  opacity: 0.5;
+}
+.reticle::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  opacity: 0.5;
+}
+
+/* Faint diagnostic grid backdrop */
+.bg-grid {
+  background-image: linear-gradient(currentColor 1px, transparent 1px),
+    linear-gradient(90deg, currentColor 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(400%);
+  }
+}
+.animate-scan {
+  animation: scan 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scan {
+    animation: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

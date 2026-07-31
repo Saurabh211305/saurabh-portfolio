@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { testimonials } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
 
@@ -22,18 +23,28 @@ export function Testimonials() {
       <div className="container-fluid">
         <Reveal>
           <p className="text-eyebrow text-signal-ink">What clients say</p>
-          <h2 className="font-display mt-4 max-w-2xl text-[clamp(2rem,4vw,3.2rem)] leading-tight">
-            Named, on record, and still working together.
-          </h2>
         </Reveal>
+        <SplitReveal
+          as="h2"
+          className="font-display mt-4 max-w-2xl text-[clamp(2rem,4.5vw,3.4rem)] leading-tight"
+        >
+          Named, on record, and still working together.
+        </SplitReveal>
 
         <Reveal delay={0.15} className="mt-16">
-          <div className="relative rounded-3xl border border-ink/10 bg-surface p-8 md:p-14">
+          <div className="reticle relative overflow-hidden rounded-3xl border border-ink/10 bg-surface p-8 md:p-14">
+            <span
+              aria-hidden
+              key={active.company}
+              className="font-display pointer-events-none absolute -right-4 -top-6 select-none text-[7rem] italic leading-none text-ink/[0.04] md:text-[10rem]"
+            >
+              {active.company.split(" ")[0]}
+            </span>
             <Quote className="h-10 w-10 text-signal/30" />
-            <p className="font-display mt-6 max-w-3xl text-xl leading-relaxed md:text-2xl">
+            <p className="font-display relative mt-6 max-w-3xl text-xl leading-relaxed md:text-2xl">
               &ldquo;{active.quote}&rdquo;
             </p>
-            <div className="mt-8 flex items-center justify-between">
+            <div className="relative mt-8 flex items-center justify-between">
               <div>
                 <p className="font-semibold text-ink">{active.name}</p>
                 <p className="text-sm text-muted-on-light">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { faqs } from "@/data/faq";
 import { cn } from "@/lib/utils";
 
@@ -14,10 +15,13 @@ export function Faq() {
       <div className="container-fluid max-w-3xl">
         <Reveal>
           <p className="text-eyebrow text-signal-ink">FAQ</p>
-          <h2 className="font-display mt-4 text-[clamp(2rem,4vw,3.2rem)] leading-tight">
-            Questions worth answering upfront
-          </h2>
         </Reveal>
+        <SplitReveal
+          as="h2"
+          className="font-display mt-4 text-[clamp(2rem,4.5vw,3.4rem)] leading-tight"
+        >
+          Questions worth answering upfront
+        </SplitReveal>
 
         <div className="mt-12 divide-y divide-ink/10 border-t border-b border-ink/10">
           {faqs.map((item, i) => {
@@ -27,9 +31,12 @@ export function Faq() {
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 py-6 text-left"
+                  className="flex w-full items-center gap-4 py-6 text-left"
                 >
-                  <span className="font-display text-lg">{item.q}</span>
+                  <span className="text-index shrink-0 text-xs text-signal-ink">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display flex-1 text-lg">{item.q}</span>
                   <ChevronDown
                     className={cn(
                       "h-5 w-5 shrink-0 text-signal transition-transform",
@@ -43,7 +50,7 @@ export function Faq() {
                     isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"
                   )}
                 >
-                  <p className="min-h-0 text-muted-on-light">{item.a}</p>
+                  <p className="min-h-0 pl-8 text-muted-on-light">{item.a}</p>
                 </div>
               </div>
             );

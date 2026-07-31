@@ -2,7 +2,9 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { MagneticButton } from "@/components/motion/MagneticButton";
+import { AnimatedReticle } from "@/components/motion/AnimatedReticle";
 import { site } from "@/lib/site";
 
 export function PremiumCta() {
@@ -12,12 +14,22 @@ export function PremiumCta() {
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal/15 blur-[160px]"
       />
+      <AnimatedReticle
+        size={56}
+        delay={0.2}
+        className="pointer-events-none absolute left-[10%] top-[18%] hidden text-white/25 lg:block"
+      />
       <div className="container-fluid relative text-center">
         <Reveal>
           <p className="text-eyebrow text-signal">Let&apos;s talk growth</p>
-          <h2 className="font-display mx-auto mt-6 max-w-3xl text-[clamp(2.2rem,6vw,4.6rem)] leading-[1.02]">
-            Ready to see these numbers on your own account?
-          </h2>
+        </Reveal>
+        <SplitReveal
+          as="h2"
+          className="font-display mx-auto mt-6 max-w-3xl text-[clamp(2.2rem,6vw,4.6rem)] leading-[1.02]"
+        >
+          Ready to see these numbers on your own account?
+        </SplitReveal>
+        <Reveal delay={0.1}>
           <p className="mx-auto mt-6 max-w-xl text-muted-on-dark">
             A discovery call costs nothing and takes 20 minutes. Bring your
             current numbers — leave with a plan.

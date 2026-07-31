@@ -2,6 +2,7 @@
 
 import { Check, Minus, X } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 type Support = boolean | "partial";
 
@@ -16,36 +17,39 @@ const rows: { label: string; adsurgeon: Support; agency: Support; inhouse: Suppo
 
 function Cell({ value }: { value: Support }) {
   if (value === true) return <Check className="mx-auto h-5 w-5 text-signal" />;
-  if (value === "partial") return <Minus className="mx-auto h-5 w-5 text-muted-on-light" />;
-  return <X className="mx-auto h-5 w-5 text-muted-on-light/50" />;
+  if (value === "partial") return <Minus className="mx-auto h-5 w-5 text-muted-on-dark" />;
+  return <X className="mx-auto h-5 w-5 text-muted-on-dark/50" />;
 }
 
 export function ComparisonFrame() {
   return (
-    <section className="section-light py-28">
+    <section className="section-dark py-28">
       <div className="container-fluid">
         <Reveal>
-          <p className="text-eyebrow text-signal-ink">How this compares</p>
-          <h2 className="font-display mt-4 max-w-2xl text-[clamp(2rem,4vw,3.2rem)] leading-tight">
-            Not a full agency. Not a junior hire. A specialist embedded in your business.
-          </h2>
+          <p className="text-eyebrow text-signal">How this compares</p>
         </Reveal>
+        <SplitReveal
+          as="h2"
+          className="font-display mt-4 max-w-2xl text-[clamp(2rem,4.5vw,3.4rem)] leading-tight text-text-light"
+        >
+          Not a full agency. Not a junior hire. A specialist embedded in your business.
+        </SplitReveal>
 
         <Reveal delay={0.15} className="mt-14 overflow-x-auto">
-          <table className="w-full min-w-[640px] border-collapse overflow-hidden rounded-3xl border border-ink/10 bg-surface text-sm">
+          <table className="w-full min-w-[640px] border-collapse overflow-hidden rounded-3xl border border-white/10 bg-ink-soft text-sm">
             <thead>
-              <tr className="border-b border-ink/10 text-left">
-                <th className="p-6 font-normal text-muted-on-light">Capability</th>
-                <th className="p-6 text-center font-semibold text-ink">The AdSurgeon</th>
-                <th className="p-6 text-center font-normal text-muted-on-light">Typical Agency</th>
-                <th className="p-6 text-center font-normal text-muted-on-light">In-house Hire</th>
+              <tr className="border-b border-white/10 text-left">
+                <th className="p-6 font-normal text-muted-on-dark">Capability</th>
+                <th className="p-6 text-center font-semibold text-text-light">The AdSurgeon</th>
+                <th className="p-6 text-center font-normal text-muted-on-dark">Typical Agency</th>
+                <th className="p-6 text-center font-normal text-muted-on-dark">In-house Hire</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.label} className="border-b border-ink/8 last:border-b-0">
-                  <td className="p-6 text-ink/80">{row.label}</td>
-                  <td className="bg-signal/5 p-6 text-center">
+                <tr key={row.label} className="border-b border-white/5 last:border-b-0">
+                  <td className="p-6 text-text-light/80">{row.label}</td>
+                  <td className="bg-signal/10 p-6 text-center">
                     <Cell value={row.adsurgeon} />
                   </td>
                   <td className="p-6 text-center">
