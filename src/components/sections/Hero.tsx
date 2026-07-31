@@ -2,111 +2,210 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
-import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { AnimatedReticle } from "@/components/motion/AnimatedReticle";
+import { PremiumPill } from "@/components/motion/PremiumPill";
+import { SplitIn } from "@/components/motion/SplitIn";
 import { Reveal } from "@/components/motion/Reveal";
+import { RevealIn } from "@/components/motion/RevealIn";
 import { Counter } from "@/components/motion/Counter";
-import { cn } from "@/lib/utils";
 import { heroStats } from "@/data/metrics";
 import { registerGsap, gsap } from "@/lib/gsapSetup";
 
-type Segment =
-  | { type: "text"; value: string }
-  | { type: "pill"; value: string; variant: "raised" | "dark" | "signal" };
+const proofInitials = ["RR", "PG", "YH", "AS"];
 
-const headline: Segment[] = [
-  { type: "text", value: "Hi, I'm" },
-  { type: "pill", value: "Saurabh", variant: "raised" },
-  { type: "text", value: "— Clients call me" },
-  { type: "pill", value: "The AdSurgeon", variant: "dark" },
-  { type: "text", value: "who builds growth systems that turn ad spend into" },
-  { type: "pill", value: "₹250Cr+", variant: "signal" },
-  { type: "text", value: "in measurable revenue." },
-];
-
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.05, delayChildren: 1.4 },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-function Pill({ segment }: { segment: Extract<Segment, { type: "pill" }> }) {
+function AvailabilityBadge() {
   return (
-    <motion.span
-      variants={item}
-      className={cn(
-        "font-sans inline-flex items-center rounded-full px-4 py-1.5 text-[clamp(0.85rem,1.7vw,1.25rem)] font-semibold align-middle",
-        segment.variant === "raised" && "neu-raised text-ink",
-        segment.variant === "dark" && "bg-ink text-white",
-        segment.variant === "signal" && "bg-signal-deep text-white shadow-[0_6px_18px_rgba(171,21,9,0.25)]"
-      )}
-    >
-      {segment.value}
-    </motion.span>
+    <RevealIn delay={0.9}>
+      <span className="glass text-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2 text-signal-ink">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+        </span>
+        Available for new discovery calls
+      </span>
+    </RevealIn>
   );
 }
 
-function Portrait() {
+function Headline() {
+  const lineClass = "text-[clamp(1.05rem,1.7vw,1.4rem)] font-medium text-muted-on-light";
   return (
-    <Reveal delay={1.1} className="relative mx-auto w-full max-w-[440px] lg:mx-0 lg:max-w-none">
-      {/* warm backlight glow — echoes the original photo's rim light, and is
-          what makes the cutout read as part of the scene rather than pasted */}
+    <div className="mt-8">
+      <SplitIn as="p" delay={1.15} className={lineClass}>
+        Hi, I&apos;m Saurabh.
+      </SplitIn>
+      <SplitIn as="p" delay={1.3} className={cnLine(lineClass)}>
+        Clients call me
+      </SplitIn>
+      <RevealIn delay={1.5} className="mt-2">
+        <PremiumPill variant="dark">The AdSurgeon</PremiumPill>
+      </RevealIn>
+      <SplitIn as="p" delay={1.85} className={cnLine(lineClass, "mt-6")}>
+        Turning ad spend into
+      </SplitIn>
+      <RevealIn delay={2.05} className="mt-2">
+        <PremiumPill variant="signal" size="xl">
+          ₹250Cr+
+        </PremiumPill>
+      </RevealIn>
+      <SplitIn as="p" delay={2.5} className={cnLine(lineClass, "mt-4")}>
+        in measurable revenue.
+      </SplitIn>
+    </div>
+  );
+}
+
+function cnLine(...parts: string[]) {
+  return parts.join(" ");
+}
+
+function PrimaryCta() {
+  return (
+    <MagneticButton>
+      <a
+        href="/contact"
+        className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink py-2 pl-2 pr-6 text-white shadow-[0_18px_40px_-14px_rgba(1,11,19,0.55)] transition-shadow duration-500 hover:shadow-[0_22px_50px_-12px_rgba(1,11,19,0.65)]"
+      >
+        <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-white/15">
+          <Image
+            src="/images/portrait/saurabh-avatar.webp"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="40px"
+          />
+        </span>
+        <span className="flex items-center">
+          <span className="flex max-w-0 items-center overflow-hidden opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:max-w-[64px] group-hover:opacity-100 group-hover:pr-2">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[9px] font-bold text-ink">
+              You
+            </span>
+            <span className="ml-1 shrink-0 text-white/70">+</span>
+          </span>
+          <span className="whitespace-nowrap text-sm font-semibold">Book a Discovery Call</span>
+        </span>
+        <ArrowUpRight className="h-4 w-4 shrink-0 text-signal" />
+      </a>
+    </MagneticButton>
+  );
+}
+
+function SecondaryCta() {
+  return (
+    <a
+      href="#case-studies"
+      className="glass group inline-flex items-center gap-3 rounded-full px-5 py-2.5 transition-transform duration-300 hover:-translate-y-0.5"
+    >
+      <span className="flex -space-x-2.5">
+        {proofInitials.map((initial) => (
+          <span
+            key={initial}
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-ink text-[9px] font-bold text-white ring-2 ring-[var(--paper)]"
+          >
+            {initial}
+          </span>
+        ))}
+      </span>
+      <span className="flex items-center gap-0.5 text-signal">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className="h-3 w-3 fill-current" />
+        ))}
+      </span>
+      <span className="text-sm font-semibold text-ink">6 Verified Case Studies</span>
+    </a>
+  );
+}
+
+function DesktopPortrait() {
+  return (
+    <div
+      aria-hidden={false}
+      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[52%] lg:block xl:w-[48%]"
+    >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 scale-125"
+        className="absolute inset-0 -z-10 scale-125"
         style={{
           background:
-            "radial-gradient(55% 50% at 62% 38%, color-mix(in srgb, var(--warm-glow) 50%, transparent), transparent 72%), radial-gradient(42% 38% at 38% 68%, color-mix(in srgb, var(--signal) 22%, transparent), transparent 72%)",
-          filter: "blur(40px)",
+            "radial-gradient(55% 55% at 68% 40%, color-mix(in srgb, var(--warm-glow) 55%, transparent), transparent 72%), radial-gradient(45% 40% at 40% 75%, color-mix(in srgb, var(--signal) 22%, transparent), transparent 72%)",
+          filter: "blur(50px)",
         }}
       />
-      {/* soft grounding shadow, not a hard silhouette outline */}
       <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-12 bottom-6 h-12 rounded-full bg-ink/15 blur-3xl"
-      />
-
-      <div
-        className="relative"
+        className="absolute bottom-0 right-0 h-[112vh] w-full sm:h-[108vh]"
         style={{
-          maskImage:
-            "radial-gradient(85% 78% at 50% 32%, black 62%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(85% 78% at 50% 32%, black 62%, transparent 100%)",
+          maskImage: "linear-gradient(to right, transparent 0%, black 16%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 16%)",
         }}
       >
         <Image
-          src="/images/portrait/saurabh-portrait.webp"
+          src="/images/portrait/saurabh-desktop.webp"
           alt="Saurabh Sharma, The AdSurgeon"
-          width={1100}
-          height={927}
+          width={1064}
+          height={918}
           priority
-          className="h-auto w-full"
-          sizes="(min-width: 1024px) 40vw, 92vw"
+          className="absolute bottom-0 right-0 h-full w-auto max-w-none object-bottom"
+        />
+        {/* subtle glass sheen, echoes the diagonal light in the source photo */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(115deg, transparent 42%, rgba(255,255,255,0.10) 50%, transparent 58%)",
+          }}
         />
       </div>
-
-      <div className="glass absolute bottom-10 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:left-2 lg:translate-x-0">
+      <div className="glass absolute bottom-[6%] left-[8%] flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:pointer-events-auto">
         <span className="relative flex h-1.5 w-1.5 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
         </span>
         <span className="font-mono-data text-xs text-ink">20x Peak ROAS</span>
       </div>
-    </Reveal>
+    </div>
+  );
+}
+
+function MobilePortrait() {
+  return (
+    <RevealIn delay={0.4} className="relative -mx-[clamp(1.25rem,5vw,5rem)] mb-8 lg:hidden">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(60% 60% at 55% 35%, color-mix(in srgb, var(--warm-glow) 45%, transparent), transparent 72%)",
+          filter: "blur(40px)",
+        }}
+      />
+      <div
+        className="relative mx-auto max-w-[420px]"
+        style={{
+          maskImage: "linear-gradient(to bottom, black 85%, transparent 99%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 99%)",
+        }}
+      >
+        <Image
+          src="/images/portrait/saurabh-mobile.webp"
+          alt="Saurabh Sharma, The AdSurgeon"
+          width={900}
+          height={1276}
+          priority
+          className="h-auto w-full"
+          sizes="92vw"
+        />
+      </div>
+      <div className="glass absolute bottom-10 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2">
+        <span className="relative flex h-1.5 w-1.5 shrink-0">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+        </span>
+        <span className="font-mono-data text-xs text-ink">20x Peak ROAS</span>
+      </div>
+    </RevealIn>
   );
 }
 
@@ -141,7 +240,6 @@ export function Hero() {
       ref={sectionRef}
       className="section-light relative flex min-h-[100svh] flex-col justify-end overflow-hidden pt-32"
     >
-      {/* layered atmospheric gradient — red + warm gold, never flat white */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -164,10 +262,6 @@ export function Hero() {
           backgroundSize: "28px 28px",
         }}
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-32 right-[-8%] h-[520px] w-[520px] rounded-full bg-signal/10 blur-[140px]"
-      />
       <div className="grain pointer-events-none absolute inset-0" aria-hidden />
 
       <AnimatedReticle
@@ -176,71 +270,37 @@ export function Hero() {
         className="pointer-events-none absolute left-[6%] top-10 hidden text-ink/25 md:block"
       />
 
+      <span
+        aria-hidden
+        className="text-index pointer-events-none absolute bottom-10 right-8 hidden -rotate-90 origin-bottom-right whitespace-nowrap text-[0.65rem] tracking-[0.3em] text-ink/25 lg:block"
+      >
+        PRECISION MARKETING SYSTEMS
+      </span>
+
+      <DesktopPortrait />
+
       <div className="container-fluid relative pb-16">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6">
-          {/* portrait first in DOM on mobile (face-first), reordered right on desktop */}
-          <div className="order-1 lg:order-2">
-            <Portrait />
-          </div>
+        <div className="relative max-w-xl lg:max-w-lg xl:max-w-xl">
+          <MobilePortrait />
 
-          <div className="order-2 lg:order-1">
-            <Reveal delay={1.0}>
-              <span className="glass text-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2 text-signal-ink">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
-                </span>
-                Available for new discovery calls
-              </span>
-            </Reveal>
+          <AvailabilityBadge />
+          <Headline />
 
-            <motion.h1
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="font-display mt-8 flex flex-wrap items-center gap-x-3 gap-y-3 text-ink text-[clamp(1.7rem,3.2vw,2.75rem)] font-medium leading-[1.2] tracking-tight"
-            >
-              {headline.map((seg, i) =>
-                seg.type === "text" ? (
-                  <motion.span key={i} variants={item}>
-                    {seg.value}
-                  </motion.span>
-                ) : (
-                  <Pill key={i} segment={seg} />
-                )
-              )}
-            </motion.h1>
-
-            <Reveal delay={2.2} className="mt-8 max-w-xl text-lg text-muted-on-light">
+          <RevealIn delay={2.7}>
+            <p className="mt-8 max-w-md text-lg text-muted-on-light">
               Performance marketing strategist helping real estate, hospitality,
               healthcare, and high-growth brands scale with Google Ads, Meta
               Ads, CRO, and AI-driven marketing systems.
-            </Reveal>
+            </p>
+          </RevealIn>
 
-            <Reveal delay={2.35} className="mt-10 flex flex-wrap items-center gap-4">
-              <MagneticButton>
-                <a
-                  href="/contact"
-                  data-cursor-text="Book"
-                  className="inline-flex items-center gap-2 rounded-full bg-signal-deep px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(171,21,9,0.28)] transition-colors hover:bg-signal-ink"
-                >
-                  Book a Discovery Call <ArrowUpRight className="h-4 w-4" />
-                </a>
-              </MagneticButton>
-              <MagneticButton>
-                <a
-                  href="#case-studies"
-                  data-cursor-text="View"
-                  className="neu-raised inline-flex items-center gap-2 rounded-full px-7 py-4 text-sm font-semibold text-ink"
-                >
-                  View Case Studies
-                </a>
-              </MagneticButton>
-            </Reveal>
-          </div>
+          <RevealIn delay={2.85} className="mt-10 flex flex-wrap items-center gap-4">
+            <PrimaryCta />
+            <SecondaryCta />
+          </RevealIn>
         </div>
 
-        <Reveal delay={2.55} className="glass mt-16 rounded-3xl p-6 sm:p-8">
+        <Reveal delay={3.05} className="glass relative z-10 mt-16 rounded-3xl p-6 sm:p-8 lg:max-w-2xl">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {heroStats.map((stat) => (
               <div key={stat.label} className="neu-inset rounded-2xl px-4 py-5 text-center sm:text-left">
@@ -252,11 +312,6 @@ export function Hero() {
             ))}
           </div>
         </Reveal>
-      </div>
-
-      <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted-on-light md:flex">
-        <span className="text-eyebrow">Scroll</span>
-        <ArrowDown className="h-4 w-4 animate-bounce" />
       </div>
     </section>
   );
