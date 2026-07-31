@@ -64,30 +64,28 @@ function cnLine(...parts: string[]) {
 function PrimaryCta() {
   return (
     <MagneticButton>
-      <a
-        href="/contact"
-        className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink py-2 pl-2 pr-6 text-white shadow-[0_18px_40px_-14px_rgba(1,11,19,0.55)] transition-shadow duration-500 hover:shadow-[0_22px_50px_-12px_rgba(1,11,19,0.65)]"
-      >
-        <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-white/15">
-          <Image
-            src="/images/portrait/saurabh-avatar.webp"
-            alt=""
-            fill
-            className="object-cover"
-            sizes="40px"
-          />
-        </span>
-        <span className="flex items-center">
-          <span className="flex max-w-0 items-center overflow-hidden opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:max-w-[64px] group-hover:opacity-100 group-hover:pr-2">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[9px] font-bold text-ink">
-              You
-            </span>
-            <span className="ml-1 shrink-0 text-white/70">+</span>
+      <div className="neu-raised rounded-full p-1.5">
+        <a
+          href="/contact"
+          className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-[linear-gradient(160deg,var(--ink-elevated)_0%,var(--ink)_70%)] py-2 pl-2 pr-5 text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_14px_30px_-14px_rgba(1,11,19,0.6)] transition-transform duration-300 ease-out hover:scale-[1.015]"
+        >
+          <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-white/15">
+            <Image
+              src="/images/portrait/saurabh-avatar.webp"
+              alt=""
+              fill
+              className="object-cover"
+              sizes="36px"
+            />
           </span>
-          <span className="whitespace-nowrap text-sm font-semibold">Book a Discovery Call</span>
-        </span>
-        <ArrowUpRight className="h-4 w-4 shrink-0 text-signal" />
-      </a>
+          <span className="mx-0.5 text-white/40">+</span>
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-bold text-ink">
+            You
+          </span>
+          <span className="ml-1 whitespace-nowrap text-sm font-semibold">Book a Discovery Call</span>
+          <ArrowUpRight className="h-4 w-4 shrink-0 text-signal transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
+      </div>
     </MagneticButton>
   );
 }
@@ -96,24 +94,26 @@ function SecondaryCta() {
   return (
     <a
       href="#case-studies"
-      className="glass group inline-flex items-center gap-3 rounded-full px-5 py-2.5 transition-transform duration-300 hover:-translate-y-0.5"
+      className="group inline-flex flex-col gap-1.5 transition-transform duration-300 hover:-translate-y-0.5"
     >
-      <span className="flex -space-x-2.5">
-        {proofInitials.map((initial) => (
-          <span
-            key={initial}
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-ink text-[9px] font-bold text-white ring-2 ring-[var(--paper)]"
-          >
-            {initial}
-          </span>
-        ))}
+      <span className="flex items-center gap-3">
+        <span className="flex -space-x-2.5">
+          {proofInitials.map((initial) => (
+            <span
+              key={initial}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white ring-2 ring-[var(--paper)]"
+            >
+              {initial}
+            </span>
+          ))}
+        </span>
+        <span className="flex items-center gap-0.5 text-signal">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} className="h-3.5 w-3.5 fill-current" />
+          ))}
+        </span>
       </span>
-      <span className="flex items-center gap-0.5 text-signal">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} className="h-3 w-3 fill-current" />
-        ))}
-      </span>
-      <span className="text-sm font-semibold text-ink">6 Verified Case Studies</span>
+      <span className="text-base font-bold text-ink">6 Verified Case Studies</span>
     </a>
   );
 }
@@ -124,41 +124,35 @@ function DesktopPortrait() {
       aria-hidden={false}
       className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[52%] lg:block xl:w-[48%]"
     >
+      {/* thin warm wash right at the seam, so the photo's amber tone
+          reads as a deliberate transition rather than a hard color cut */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 scale-125"
+        className="absolute inset-y-0 left-0 -z-10 w-1/2"
         style={{
           background:
-            "radial-gradient(55% 55% at 68% 40%, color-mix(in srgb, var(--warm-glow) 55%, transparent), transparent 72%), radial-gradient(45% 40% at 40% 75%, color-mix(in srgb, var(--signal) 22%, transparent), transparent 72%)",
-          filter: "blur(50px)",
+            "radial-gradient(60% 100% at 0% 50%, color-mix(in srgb, var(--warm-glow) 30%, transparent), transparent 75%)",
+          filter: "blur(40px)",
         }}
       />
       <div
-        className="absolute bottom-0 right-0 h-[112vh] w-full sm:h-[108vh]"
+        className="relative h-full w-full"
         style={{
-          maskImage: "linear-gradient(to right, transparent 0%, black 16%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 16%)",
+          maskImage: "linear-gradient(to right, transparent 0%, black 15%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%)",
         }}
       >
         <Image
           src="/images/portrait/saurabh-desktop.webp"
-          alt="Saurabh Sharma, The AdSurgeon"
-          width={1064}
-          height={918}
+          alt="Saurabh Sharma, The AdSurgeon, in his studio"
+          fill
           priority
-          className="absolute bottom-0 right-0 h-full w-auto max-w-none object-bottom"
-        />
-        {/* subtle glass sheen, echoes the diagonal light in the source photo */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(115deg, transparent 42%, rgba(255,255,255,0.10) 50%, transparent 58%)",
-          }}
+          className="object-cover"
+          style={{ objectPosition: "50% 12%" }}
+          sizes="48vw"
         />
       </div>
-      <div className="glass absolute bottom-[6%] left-[8%] flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:pointer-events-auto">
+      <div className="glass absolute bottom-[6%] left-[10%] flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:pointer-events-auto">
         <span className="relative flex h-1.5 w-1.5 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
@@ -173,29 +167,20 @@ function MobilePortrait() {
   return (
     <RevealIn delay={0.4} className="relative -mx-[clamp(1.25rem,5vw,5rem)] mb-8 lg:hidden">
       <div
-        aria-hidden
-        className="absolute inset-0 -z-10"
+        className="relative aspect-[4/5] w-full"
         style={{
-          background:
-            "radial-gradient(60% 60% at 55% 35%, color-mix(in srgb, var(--warm-glow) 45%, transparent), transparent 72%)",
-          filter: "blur(40px)",
-        }}
-      />
-      <div
-        className="relative mx-auto max-w-[420px]"
-        style={{
-          maskImage: "linear-gradient(to bottom, black 85%, transparent 99%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 99%)",
+          maskImage: "linear-gradient(to bottom, black 82%, transparent 99%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 82%, transparent 99%)",
         }}
       >
         <Image
           src="/images/portrait/saurabh-mobile.webp"
-          alt="Saurabh Sharma, The AdSurgeon"
-          width={900}
-          height={1276}
+          alt="Saurabh Sharma, The AdSurgeon, in his studio"
+          fill
           priority
-          className="h-auto w-full"
-          sizes="92vw"
+          className="object-cover"
+          style={{ objectPosition: "50% 12%" }}
+          sizes="100vw"
         />
       </div>
       <div className="glass absolute bottom-10 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2">
