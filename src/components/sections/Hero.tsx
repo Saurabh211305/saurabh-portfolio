@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { MagneticButton } from "@/components/motion/MagneticButton";
@@ -17,18 +18,18 @@ type Segment =
 
 const headline: Segment[] = [
   { type: "text", value: "Hi, I'm" },
-  { type: "pill", value: "Saurabh Sharma", variant: "raised" },
+  { type: "pill", value: "Saurabh", variant: "raised" },
   { type: "text", value: "— clients call me" },
   { type: "pill", value: "The AdSurgeon", variant: "dark" },
-  { type: "text", value: ". I turn paid media into" },
-  { type: "pill", value: "₹6Cr+", variant: "signal" },
-  { type: "text", value: "in tracked revenue." },
+  { type: "text", value: ". I build growth systems that turn ad spend into" },
+  { type: "pill", value: "₹250Cr+", variant: "signal" },
+  { type: "text", value: "in measurable revenue." },
 ];
 
 const container: Variants = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.055, delayChildren: 1.4 },
+    transition: { staggerChildren: 0.05, delayChildren: 1.4 },
   },
 };
 
@@ -47,7 +48,7 @@ function Pill({ segment }: { segment: Extract<Segment, { type: "pill" }> }) {
     <motion.span
       variants={item}
       className={cn(
-        "font-sans inline-flex items-center rounded-full px-5 py-2 text-[clamp(0.95rem,2.3vw,1.7rem)] font-semibold align-middle",
+        "font-sans inline-flex items-center rounded-full px-5 py-2 text-[clamp(0.9rem,2vw,1.5rem)] font-semibold align-middle",
         segment.variant === "raised" && "neu-raised text-ink",
         segment.variant === "dark" && "bg-ink text-white",
         segment.variant === "signal" && "bg-signal-deep text-white shadow-[0_6px_18px_rgba(171,21,9,0.25)]"
@@ -55,6 +56,56 @@ function Pill({ segment }: { segment: Extract<Segment, { type: "pill" }> }) {
     >
       {segment.value}
     </motion.span>
+  );
+}
+
+function Portrait() {
+  return (
+    <Reveal delay={1.1} className="relative mx-auto w-full max-w-[360px] lg:mx-0 lg:max-w-none">
+      {/* warm backlight glow — echoes the original photo's orange rim light */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 scale-110"
+        style={{
+          background:
+            "radial-gradient(60% 55% at 55% 35%, color-mix(in srgb, var(--warm-glow) 45%, transparent), transparent 70%), radial-gradient(45% 40% at 40% 70%, color-mix(in srgb, var(--signal) 25%, transparent), transparent 70%)",
+          filter: "blur(30px)",
+        }}
+      />
+      {/* grounding contact shadow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-8 bottom-4 h-10 rounded-full bg-ink/20 blur-2xl"
+      />
+
+      <div className="reticle relative">
+        <div
+          className="relative overflow-hidden rounded-[2rem]"
+          style={{
+            maskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
+          }}
+        >
+          <Image
+            src="/images/portrait/saurabh-portrait.webp"
+            alt="Saurabh Sharma, The AdSurgeon"
+            width={1000}
+            height={1284}
+            priority
+            className="h-auto w-full drop-shadow-[0_30px_40px_rgba(1,11,19,0.18)]"
+            sizes="(min-width: 1024px) 34vw, 80vw"
+          />
+        </div>
+
+        <div className="glass absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:left-4 lg:translate-x-0">
+          <span className="relative flex h-1.5 w-1.5 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+          </span>
+          <span className="font-mono-data text-xs text-ink">20x Peak ROAS</span>
+        </div>
+      </div>
+    </Reveal>
   );
 }
 
@@ -108,8 +159,7 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, #010b13 1px, transparent 0)",
+          backgroundImage: "radial-gradient(circle at 1px 1px, #010b13 1px, transparent 0)",
           backgroundSize: "28px 28px",
         }}
       />
@@ -122,69 +172,74 @@ export function Hero() {
       <AnimatedReticle
         size={40}
         delay={0.5}
-        className="pointer-events-none absolute left-1/2 top-10 hidden -translate-x-1/2 text-ink/25 md:block"
-      />
-      <AnimatedReticle
-        size={56}
-        delay={1.9}
-        className="pointer-events-none absolute right-[8%] top-[24%] hidden text-ink/15 lg:block"
+        className="pointer-events-none absolute left-[6%] top-10 hidden text-ink/25 md:block"
       />
 
-      <div className="reticle container-fluid relative pb-16">
-        <Reveal delay={1.0}>
-          <span className="glass text-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2 text-signal-ink">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
-            </span>
-            Available for new discovery calls
-          </span>
-        </Reveal>
+      <div className="container-fluid relative pb-16">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
+          {/* portrait first in DOM on mobile (face-first), reordered right on desktop */}
+          <div className="order-1 lg:order-2">
+            <Portrait />
+          </div>
 
-        <motion.h1
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="font-display mt-8 flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-3 text-ink text-[clamp(2.1rem,5.6vw,4.6rem)] font-medium leading-[1.08] tracking-tight"
-        >
-          {headline.map((seg, i) =>
-            seg.type === "text" ? (
-              <motion.span key={i} variants={item}>
-                {seg.value}
-              </motion.span>
-            ) : (
-              <Pill key={i} segment={seg} />
-            )
-          )}
-        </motion.h1>
+          <div className="order-2 lg:order-1">
+            <Reveal delay={1.0}>
+              <span className="glass text-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2 text-signal-ink">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+                </span>
+                Available for new discovery calls
+              </span>
+            </Reveal>
 
-        <Reveal delay={2.2} className="mt-8 max-w-xl text-lg text-muted-on-light">
-          Across real estate, healthcare, hospitality, fashion and edtech —
-          India and the UAE. 20x peak ROAS, six real case studies, zero fluff.
-        </Reveal>
-
-        <Reveal delay={2.35} className="mt-10 flex flex-wrap items-center gap-4">
-          <MagneticButton>
-            <a
-              href="/contact"
-              data-cursor-text="Book"
-              className="inline-flex items-center gap-2 rounded-full bg-signal-deep px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(171,21,9,0.28)] transition-colors hover:bg-signal-ink"
+            <motion.h1
+              variants={container}
+              initial="hidden"
+              animate="show"
+              className="font-display mt-8 flex flex-wrap items-center gap-x-3 gap-y-3 text-ink text-[clamp(1.9rem,4.4vw,3.6rem)] font-medium leading-[1.12] tracking-tight"
             >
-              Book a Discovery Call <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </MagneticButton>
-          <MagneticButton>
-            <a
-              href="#case-studies"
-              data-cursor-text="View"
-              className="neu-raised inline-flex items-center gap-2 rounded-full px-7 py-4 text-sm font-semibold text-ink"
-            >
-              View Case Studies
-            </a>
-          </MagneticButton>
-        </Reveal>
+              {headline.map((seg, i) =>
+                seg.type === "text" ? (
+                  <motion.span key={i} variants={item}>
+                    {seg.value}
+                  </motion.span>
+                ) : (
+                  <Pill key={i} segment={seg} />
+                )
+              )}
+            </motion.h1>
 
-        <Reveal delay={2.55} className="glass mt-20 rounded-3xl p-6 sm:p-8">
+            <Reveal delay={2.2} className="mt-8 max-w-xl text-lg text-muted-on-light">
+              Performance marketing strategist helping real estate, hospitality,
+              healthcare, and high-growth brands scale with Google Ads, Meta
+              Ads, CRO, and AI-driven marketing systems.
+            </Reveal>
+
+            <Reveal delay={2.35} className="mt-10 flex flex-wrap items-center gap-4">
+              <MagneticButton>
+                <a
+                  href="/contact"
+                  data-cursor-text="Book"
+                  className="inline-flex items-center gap-2 rounded-full bg-signal-deep px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(171,21,9,0.28)] transition-colors hover:bg-signal-ink"
+                >
+                  Book a Discovery Call <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <a
+                  href="#case-studies"
+                  data-cursor-text="View"
+                  className="neu-raised inline-flex items-center gap-2 rounded-full px-7 py-4 text-sm font-semibold text-ink"
+                >
+                  View Case Studies
+                </a>
+              </MagneticButton>
+            </Reveal>
+          </div>
+        </div>
+
+        <Reveal delay={2.55} className="glass mt-16 rounded-3xl p-6 sm:p-8">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {heroStats.map((stat) => (
               <div key={stat.label} className="neu-inset rounded-2xl px-4 py-5 text-center sm:text-left">
