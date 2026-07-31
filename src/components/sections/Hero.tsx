@@ -13,11 +13,11 @@ import { registerGsap, gsap } from "@/lib/gsapSetup";
 
 type Segment =
   | { type: "text"; value: string }
-  | { type: "pill"; value: string; variant: "outline" | "dark" | "signal" };
+  | { type: "pill"; value: string; variant: "raised" | "dark" | "signal" };
 
 const headline: Segment[] = [
   { type: "text", value: "Hi, I'm" },
-  { type: "pill", value: "Saurabh Sharma", variant: "outline" },
+  { type: "pill", value: "Saurabh Sharma", variant: "raised" },
   { type: "text", value: "— clients call me" },
   { type: "pill", value: "The AdSurgeon", variant: "dark" },
   { type: "text", value: ". I turn paid media into" },
@@ -48,9 +48,9 @@ function Pill({ segment }: { segment: Extract<Segment, { type: "pill" }> }) {
       variants={item}
       className={cn(
         "font-sans inline-flex items-center rounded-full px-5 py-2 text-[clamp(0.95rem,2.3vw,1.7rem)] font-semibold align-middle",
-        segment.variant === "outline" && "border border-ink/20 bg-surface text-ink",
+        segment.variant === "raised" && "neu-raised text-ink",
         segment.variant === "dark" && "bg-ink text-white",
-        segment.variant === "signal" && "bg-signal-deep text-white"
+        segment.variant === "signal" && "bg-signal-deep text-white shadow-[0_6px_18px_rgba(171,21,9,0.25)]"
       )}
     >
       {segment.value}
@@ -89,14 +89,19 @@ export function Hero() {
       ref={sectionRef}
       className="section-light relative flex min-h-[100svh] flex-col justify-end overflow-hidden pt-32"
     >
-      {/* soft premium gradient — not flat white */}
+      {/* layered atmospheric gradient — red + warm gold, never flat white */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--signal) 7%, transparent), transparent 60%)",
+            "radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--signal) 8%, transparent), transparent 60%)",
         }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-40 -left-20 h-[480px] w-[480px] rounded-full opacity-[0.12] blur-[140px]"
+        style={{ background: "var(--warm-glow)" }}
       />
       <div
         ref={bgRef}
@@ -104,7 +109,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, #050505 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, #010b13 1px, transparent 0)",
           backgroundSize: "28px 28px",
         }}
       />
@@ -127,7 +132,7 @@ export function Hero() {
 
       <div className="reticle container-fluid relative pb-16">
         <Reveal delay={1.0}>
-          <span className="text-eyebrow inline-flex items-center gap-2 rounded-full border border-ink/12 bg-surface/70 px-4 py-2 text-signal-ink">
+          <span className="glass text-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2 text-signal-ink">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
@@ -163,7 +168,7 @@ export function Hero() {
             <a
               href="/contact"
               data-cursor-text="Book"
-              className="inline-flex items-center gap-2 rounded-full bg-signal-deep px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-signal-ink"
+              className="inline-flex items-center gap-2 rounded-full bg-signal-deep px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(171,21,9,0.28)] transition-colors hover:bg-signal-ink"
             >
               Book a Discovery Call <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -172,23 +177,25 @@ export function Hero() {
             <a
               href="#case-studies"
               data-cursor-text="View"
-              className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-7 py-4 text-sm font-semibold text-ink transition-colors hover:border-ink/50"
+              className="neu-raised inline-flex items-center gap-2 rounded-full px-7 py-4 text-sm font-semibold text-ink"
             >
               View Case Studies
             </a>
           </MagneticButton>
         </Reveal>
 
-        <div className="mt-20 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-line-light pt-10 sm:grid-cols-4">
-          {heroStats.map((stat, i) => (
-            <Reveal key={stat.label} delay={2.5 + 0.1 * i}>
-              <p className="font-mono-data text-3xl font-medium text-ink sm:text-4xl">
-                <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
-              </p>
-              <p className="mt-2 text-xs text-muted-on-light">{stat.label}</p>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={2.55} className="glass mt-20 rounded-3xl p-6 sm:p-8">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {heroStats.map((stat) => (
+              <div key={stat.label} className="neu-inset rounded-2xl px-4 py-5 text-center sm:text-left">
+                <p className="font-mono-data text-2xl font-medium text-ink sm:text-3xl">
+                  <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
+                </p>
+                <p className="mt-2 text-xs leading-snug text-muted-on-light">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
 
       <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted-on-light md:flex">
