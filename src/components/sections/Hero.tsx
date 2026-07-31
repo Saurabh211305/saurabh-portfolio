@@ -19,9 +19,9 @@ type Segment =
 const headline: Segment[] = [
   { type: "text", value: "Hi, I'm" },
   { type: "pill", value: "Saurabh", variant: "raised" },
-  { type: "text", value: "— clients call me" },
+  { type: "text", value: "— Clients call me" },
   { type: "pill", value: "The AdSurgeon", variant: "dark" },
-  { type: "text", value: ". I build growth systems that turn ad spend into" },
+  { type: "text", value: "who builds growth systems that turn ad spend into" },
   { type: "pill", value: "₹250Cr+", variant: "signal" },
   { type: "text", value: "in measurable revenue." },
 ];
@@ -48,7 +48,7 @@ function Pill({ segment }: { segment: Extract<Segment, { type: "pill" }> }) {
     <motion.span
       variants={item}
       className={cn(
-        "font-sans inline-flex items-center rounded-full px-5 py-2 text-[clamp(0.9rem,2vw,1.5rem)] font-semibold align-middle",
+        "font-sans inline-flex items-center rounded-full px-4 py-1.5 text-[clamp(0.85rem,1.7vw,1.25rem)] font-semibold align-middle",
         segment.variant === "raised" && "neu-raised text-ink",
         segment.variant === "dark" && "bg-ink text-white",
         segment.variant === "signal" && "bg-signal-deep text-white shadow-[0_6px_18px_rgba(171,21,9,0.25)]"
@@ -61,49 +61,50 @@ function Pill({ segment }: { segment: Extract<Segment, { type: "pill" }> }) {
 
 function Portrait() {
   return (
-    <Reveal delay={1.1} className="relative mx-auto w-full max-w-[360px] lg:mx-0 lg:max-w-none">
-      {/* warm backlight glow — echoes the original photo's orange rim light */}
+    <Reveal delay={1.1} className="relative mx-auto w-full max-w-[440px] lg:mx-0 lg:max-w-none">
+      {/* warm backlight glow — echoes the original photo's rim light, and is
+          what makes the cutout read as part of the scene rather than pasted */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 scale-110"
+        className="pointer-events-none absolute inset-0 -z-10 scale-125"
         style={{
           background:
-            "radial-gradient(60% 55% at 55% 35%, color-mix(in srgb, var(--warm-glow) 45%, transparent), transparent 70%), radial-gradient(45% 40% at 40% 70%, color-mix(in srgb, var(--signal) 25%, transparent), transparent 70%)",
-          filter: "blur(30px)",
+            "radial-gradient(55% 50% at 62% 38%, color-mix(in srgb, var(--warm-glow) 50%, transparent), transparent 72%), radial-gradient(42% 38% at 38% 68%, color-mix(in srgb, var(--signal) 22%, transparent), transparent 72%)",
+          filter: "blur(40px)",
         }}
       />
-      {/* grounding contact shadow */}
+      {/* soft grounding shadow, not a hard silhouette outline */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-8 bottom-4 h-10 rounded-full bg-ink/20 blur-2xl"
+        className="pointer-events-none absolute inset-x-12 bottom-6 h-12 rounded-full bg-ink/15 blur-3xl"
       />
 
-      <div className="reticle relative">
-        <div
-          className="relative overflow-hidden rounded-[2rem]"
-          style={{
-            maskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
-          }}
-        >
-          <Image
-            src="/images/portrait/saurabh-portrait.webp"
-            alt="Saurabh Sharma, The AdSurgeon"
-            width={1000}
-            height={1284}
-            priority
-            className="h-auto w-full drop-shadow-[0_30px_40px_rgba(1,11,19,0.18)]"
-            sizes="(min-width: 1024px) 34vw, 80vw"
-          />
-        </div>
+      <div
+        className="relative"
+        style={{
+          maskImage:
+            "radial-gradient(85% 78% at 50% 32%, black 62%, transparent 100%)",
+          WebkitMaskImage:
+            "radial-gradient(85% 78% at 50% 32%, black 62%, transparent 100%)",
+        }}
+      >
+        <Image
+          src="/images/portrait/saurabh-portrait.webp"
+          alt="Saurabh Sharma, The AdSurgeon"
+          width={1100}
+          height={927}
+          priority
+          className="h-auto w-full"
+          sizes="(min-width: 1024px) 40vw, 92vw"
+        />
+      </div>
 
-        <div className="glass absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:left-4 lg:translate-x-0">
-          <span className="relative flex h-1.5 w-1.5 shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
-          </span>
-          <span className="font-mono-data text-xs text-ink">20x Peak ROAS</span>
-        </div>
+      <div className="glass absolute bottom-10 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:left-2 lg:translate-x-0">
+        <span className="relative flex h-1.5 w-1.5 shrink-0">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+        </span>
+        <span className="font-mono-data text-xs text-ink">20x Peak ROAS</span>
       </div>
     </Reveal>
   );
@@ -176,7 +177,7 @@ export function Hero() {
       />
 
       <div className="container-fluid relative pb-16">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6">
           {/* portrait first in DOM on mobile (face-first), reordered right on desktop */}
           <div className="order-1 lg:order-2">
             <Portrait />
@@ -197,7 +198,7 @@ export function Hero() {
               variants={container}
               initial="hidden"
               animate="show"
-              className="font-display mt-8 flex flex-wrap items-center gap-x-3 gap-y-3 text-ink text-[clamp(1.9rem,4.4vw,3.6rem)] font-medium leading-[1.12] tracking-tight"
+              className="font-display mt-8 flex flex-wrap items-center gap-x-3 gap-y-3 text-ink text-[clamp(1.7rem,3.2vw,2.75rem)] font-medium leading-[1.2] tracking-tight"
             >
               {headline.map((seg, i) =>
                 seg.type === "text" ? (
