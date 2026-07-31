@@ -47,18 +47,10 @@ export function Navbar() {
       >
         <Link
           href="/"
-          className={cn(
-            "font-display text-lg font-medium tracking-tight transition-colors",
-            solid ? "text-ink" : "text-text-light"
-          )}
+          className="font-display text-lg font-medium tracking-tight text-ink"
         >
           Saurabh Sharma
-          <span
-            className={cn(
-              "ml-2 text-eyebrow align-middle",
-              solid ? "text-signal-ink" : "text-signal"
-            )}
-          >
+          <span className="ml-2 text-eyebrow align-middle text-signal-ink">
             The AdSurgeon
           </span>
         </Link>
@@ -68,12 +60,7 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors",
-                  solid
-                    ? "text-ink/70 hover:text-ink"
-                    : "text-text-light/85 hover:text-text-light"
-                )}
+                className="text-sm font-medium text-ink/70 transition-colors hover:text-ink"
               >
                 {link.label}
               </Link>
@@ -95,7 +82,7 @@ export function Navbar() {
         </div>
 
         <button
-          className={cn("p-2 transition-colors md:hidden", solid ? "text-ink" : "text-text-light")}
+          className="p-2 text-ink transition-colors md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
