@@ -62,7 +62,7 @@ function Headline() {
           <PremiumPill variant="signal">₹250Cr+</PremiumPill>
         </RevealIn>
         <RevealIn delay={1.7}>
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white shadow-[0_12px_28px_-12px_rgba(1,11,19,0.3)] sm:h-14 sm:w-14">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-off-white shadow-[0_12px_28px_-12px_rgba(1,11,19,0.3)] sm:h-14 sm:w-14">
             <ArrowUpRight className="h-5 w-5 text-signal" />
           </span>
         </RevealIn>
@@ -131,7 +131,7 @@ function StatCard({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-white/60 bg-[var(--paper)]/95 px-4 py-3.5 shadow-[0_18px_40px_-18px_rgba(1,11,19,0.4)] backdrop-blur-xl",
+        "rounded-[20px] border border-white/60 bg-card-white p-8 shadow-[0_18px_40px_-18px_rgba(1,11,19,0.4)]",
         className
       )}
     >
@@ -139,7 +139,7 @@ function StatCard({
         {icon}
       </div>
       <p className="font-display text-xl font-semibold text-ink sm:text-2xl">{value}</p>
-      <p className="mt-0.5 max-w-[9.5rem] text-[11px] leading-snug text-muted-on-light">{label}</p>
+      <p className="mt-0.5 text-[11px] leading-snug text-muted-on-light">{label}</p>
     </div>
   );
 }
@@ -173,18 +173,6 @@ function DesktopVisual() {
       aria-hidden={false}
       className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block xl:w-[54%]"
     >
-      {/* thin warm wash right at the seam, so the photo's amber tone
-          reads as a deliberate transition rather than a hard color cut */}
-      <div
-        aria-hidden
-        className="absolute inset-y-0 left-0 -z-10 w-1/2"
-        style={{
-          background:
-            "radial-gradient(60% 100% at 0% 50%, color-mix(in srgb, var(--warm-glow) 12%, transparent), transparent 75%)",
-          filter: "blur(40px)",
-        }}
-      />
-
       {/* decorative orbit ring, echoing the diagnostic-instrument motif */}
       <div
         aria-hidden
@@ -217,7 +205,7 @@ function DesktopVisual() {
       <Connector className="right-[8%] top-0 h-[4%]" />
       <Node className="right-[calc(8%-12px)] top-[3%]" />
 
-      <RevealIn delay={1.9} className="absolute left-[14%] top-[15%] w-36 lg:pointer-events-auto xl:w-40">
+      <RevealIn delay={1.9} className="absolute left-[14%] top-[15%] w-[150px] lg:pointer-events-auto">
         <StatCard
           icon={<BarChart3 className="h-4 w-4" />}
           value="₹50Cr+"
@@ -225,7 +213,7 @@ function DesktopVisual() {
         />
       </RevealIn>
 
-      <RevealIn delay={2.05} className="absolute right-[4%] top-[4%] w-36 lg:pointer-events-auto xl:w-40">
+      <RevealIn delay={2.05} className="absolute right-[4%] top-[4%] w-[150px] lg:pointer-events-auto">
         <StatCard
           icon={<PieChart className="h-4 w-4" />}
           value="20x"
@@ -235,7 +223,7 @@ function DesktopVisual() {
 
       <RevealIn
         delay={2.2}
-        className="absolute right-0 top-[42%] w-36 lg:pointer-events-auto xl:w-40"
+        className="absolute right-0 top-[42%] w-[150px] lg:pointer-events-auto"
       >
         <StatCard
           icon={<Users className="h-4 w-4" />}
@@ -244,7 +232,7 @@ function DesktopVisual() {
         />
       </RevealIn>
 
-      <RevealIn delay={2.35} className="absolute left-[13%] top-[52%] w-36 lg:pointer-events-auto xl:w-40">
+      <RevealIn delay={2.35} className="absolute left-[13%] top-[52%] w-[150px] lg:pointer-events-auto">
         <StatCard
           icon={<PieChart className="h-4 w-4" />}
           value="₹6Cr+"
@@ -254,7 +242,7 @@ function DesktopVisual() {
 
       <RevealIn
         delay={2.5}
-        className="absolute right-[8%] bottom-[6%] w-36 lg:pointer-events-auto xl:w-40"
+        className="absolute right-[8%] bottom-[6%] w-[150px] lg:pointer-events-auto"
       >
         <StatCard
           icon={<TrendingUp className="h-4 w-4" />}
@@ -317,9 +305,9 @@ function BottomStatsBar() {
   return (
     <RevealIn
       delay={2.7}
-      className="glass relative z-0 mt-14 hidden max-w-[min(56%,880px)] rounded-[2rem] px-7 py-6 lg:flex"
+      className="relative z-0 mt-14 hidden max-w-[min(56%,880px)] rounded-[20px] border border-white/60 bg-card-white p-8 shadow-[0_18px_40px_-18px_rgba(1,11,19,0.4)] lg:flex"
     >
-      <div className="flex w-full items-center justify-between gap-5">
+      <div className="flex w-full items-center justify-between gap-6">
         {bottomStats.map((stat) => (
           <div key={stat.label} className="flex items-center gap-2.5">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-paper-dim text-ink/70">

@@ -7,11 +7,13 @@
   --ink: #010b13;
   --ink-soft: #0b141c;
   --ink-elevated: #16202a;
-  --paper: #fffff0;
+  --paper: #fff7d3;
   --paper-dim: #eae8e1;
   --surface: #fffdf7;
+  --card-white: #fafafa;
+  --off-white: #ebf1f5;
   --text-dark: #010b13;
-  --text-light: #fffff0;
+  --text-light: #fff7d3;
   --muted-on-dark: #8f8f96;
   --muted-on-light: #55555c;
 
@@ -46,6 +48,8 @@
   --color-paper: var(--paper);
   --color-paper-dim: var(--paper-dim);
   --color-surface: var(--surface);
+  --color-card-white: var(--card-white);
+  --color-off-white: var(--off-white);
   --color-signal: var(--signal);
   --color-signal-deep: var(--signal-deep);
   --color-signal-soft: var(--signal-soft);
