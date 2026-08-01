@@ -203,8 +203,8 @@ function DesktopVisual() {
           alt="Saurabh Sharma, The AdSurgeon, in his studio"
           fill
           priority
-          className="object-cover saturate-[0.55] brightness-[1.08]"
-          style={{ objectPosition: "50% 12%" }}
+          className="object-cover"
+          style={{ objectPosition: "78% 15%" }}
           sizes="45vw"
         />
       </div>
@@ -281,8 +281,8 @@ function MobilePortrait() {
           alt="Saurabh Sharma, The AdSurgeon, in his studio"
           fill
           priority
-          className="object-cover saturate-[0.55] brightness-[1.08]"
-          style={{ objectPosition: "50% 12%" }}
+          className="object-cover"
+          style={{ objectPosition: "80% 15%" }}
           sizes="100vw"
         />
       </div>
