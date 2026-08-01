@@ -180,7 +180,7 @@ function DesktopVisual() {
         className="absolute inset-y-0 left-0 -z-10 w-1/2"
         style={{
           background:
-            "radial-gradient(60% 100% at 0% 50%, color-mix(in srgb, var(--warm-glow) 30%, transparent), transparent 75%)",
+            "radial-gradient(60% 100% at 0% 50%, color-mix(in srgb, var(--warm-glow) 12%, transparent), transparent 75%)",
           filter: "blur(40px)",
         }}
       />
@@ -203,7 +203,7 @@ function DesktopVisual() {
           alt="Saurabh Sharma, The AdSurgeon, in his studio"
           fill
           priority
-          className="object-cover"
+          className="object-cover saturate-[0.55] brightness-[1.08]"
           style={{ objectPosition: "50% 12%" }}
           sizes="45vw"
         />
@@ -281,7 +281,7 @@ function MobilePortrait() {
           alt="Saurabh Sharma, The AdSurgeon, in his studio"
           fill
           priority
-          className="object-cover"
+          className="object-cover saturate-[0.55] brightness-[1.08]"
           style={{ objectPosition: "50% 12%" }}
           sizes="100vw"
         />
@@ -374,12 +374,12 @@ export function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--signal) 8%, transparent), transparent 60%)",
+            "radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--signal) 5%, transparent), transparent 60%)",
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-40 -left-20 h-[480px] w-[480px] rounded-full opacity-[0.12] blur-[140px]"
+        className="pointer-events-none absolute -bottom-40 -left-20 h-[480px] w-[480px] rounded-full opacity-[0.05] blur-[140px]"
         style={{ background: "var(--warm-glow)" }}
       />
       <div
@@ -409,7 +409,7 @@ export function Hero() {
       <DesktopVisual />
 
       <div className="container-fluid relative">
-        <div className="relative max-w-xl lg:max-w-md xl:max-w-lg">
+        <div className="relative max-w-xl lg:max-w-xl xl:max-w-2xl">
           <MobilePortrait />
 
           <AvailabilityBadge />

@@ -78,7 +78,7 @@ export function GrowthFramework() {
   }, []);
 
   return (
-    <section className="section-dark relative">
+    <section id="process" className="section-dark relative">
       <div ref={wrapperRef} style={{ height: `${steps.length * 85}vh` }} className="relative">
         <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
           <div className="container-fluid">

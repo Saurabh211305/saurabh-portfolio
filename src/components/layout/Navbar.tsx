@@ -3,32 +3,24 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, Quote, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 import { AvatarCta } from "@/components/motion/AvatarCta";
 
 function LogoMark() {
   return (
-    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-ink text-paper">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <circle cx="12" cy="12" r="6.5" stroke="currentColor" strokeWidth="1.6" />
-        <path
-          d="M12 2v4M12 18v4M2 12h4M18 12h4"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-      </svg>
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-ink shadow-[0_1px_2px_rgba(1,11,19,0.08),0_4px_10px_-4px_rgba(1,11,19,0.15)]">
+      <Quote className="h-4 w-4 -rotate-90" fill="currentColor" strokeWidth={0} />
     </span>
   );
 }
 
 const links = [
-  { href: "/#case-studies", label: "Case Studies" },
-  { href: "/#expertise", label: "Expertise" },
   { href: "/about", label: "About" },
-  { href: "/#testimonials", label: "Testimonials" },
+  { href: "/#case-studies", label: "Work" },
+  { href: "/#process", label: "Process" },
+  { href: "/#testimonials", label: "Experiments" },
 ];
 
 export function Navbar() {
