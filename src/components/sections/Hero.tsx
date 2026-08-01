@@ -2,22 +2,36 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
-import { ArrowUpRight, BarChart3, Building2, PieChart, Star, TrendingUp } from "lucide-react";
+import {
+  ArrowUpRight,
+  BarChart3,
+  Globe,
+  PieChart,
+  Plus,
+  Shield,
+  TrendingUp,
+  Trophy,
+  Users,
+} from "lucide-react";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { AnimatedReticle } from "@/components/motion/AnimatedReticle";
 import { PremiumPill } from "@/components/motion/PremiumPill";
 import { AvatarCta } from "@/components/motion/AvatarCta";
 import { SplitIn } from "@/components/motion/SplitIn";
-import { Reveal } from "@/components/motion/Reveal";
 import { RevealIn } from "@/components/motion/RevealIn";
-import { Counter } from "@/components/motion/Counter";
-import { heroStats } from "@/data/metrics";
 import { registerGsap, gsap } from "@/lib/gsapSetup";
 import { cn } from "@/lib/utils";
 
-const proofInitials = ["RR", "PG", "YH", "AS"];
+const proofInitials = ["RR", "PG", "YH"];
 const headlineLine =
   "font-display text-[clamp(2.15rem,4.4vw,3.4rem)] font-medium leading-[1.08] text-ink";
+
+const bottomStats = [
+  { icon: Shield, value: "20+", label: "Industries Served" },
+  { icon: TrendingUp, value: "92%", label: "Client Retention" },
+  { icon: Trophy, value: "50+", label: "Successful Campaigns" },
+  { icon: Globe, value: "8+", label: "Countries Served" },
+];
 
 function AvailabilityBadge() {
   return (
@@ -80,29 +94,25 @@ function SecondaryCta() {
   return (
     <a
       href="#case-studies"
-      className="glass group flex flex-col gap-2 rounded-2xl px-5 py-3.5 transition-transform duration-300 hover:-translate-y-0.5"
+      className="glass group flex items-center gap-3 rounded-2xl px-4 py-3 transition-transform duration-300 hover:-translate-y-0.5"
     >
-      <span className="flex items-center gap-3">
-        <span className="flex -space-x-2.5">
-          {proofInitials.map((initial) => (
-            <span
-              key={initial}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white ring-2 ring-[var(--paper)]"
-            >
-              {initial}
-            </span>
-          ))}
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-paper-dim text-[9px] font-bold text-ink ring-2 ring-[var(--paper)]">
-            +2
+      <span className="flex -space-x-2.5">
+        {proofInitials.map((initial) => (
+          <span
+            key={initial}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white ring-2 ring-[var(--paper)]"
+          >
+            {initial}
           </span>
-        </span>
-        <span className="flex items-center gap-0.5 text-signal">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="h-3.5 w-3.5 fill-current" />
-          ))}
+        ))}
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[9px] font-bold text-white ring-2 ring-[var(--paper)]">
+          +95
         </span>
       </span>
-      <span className="text-sm font-bold text-ink">6 Verified Case Studies</span>
+      <span className="flex flex-col leading-tight">
+        <span className="font-display text-lg font-bold text-ink">100+</span>
+        <span className="text-xs text-muted-on-light">Happy clients</span>
+      </span>
     </a>
   );
 }
@@ -129,8 +139,31 @@ function StatCard({
         {icon}
       </div>
       <p className="font-display text-xl font-semibold text-ink sm:text-2xl">{value}</p>
-      <p className="mt-0.5 max-w-[9rem] text-[11px] leading-snug text-muted-on-light">{label}</p>
+      <p className="mt-0.5 max-w-[9.5rem] text-[11px] leading-snug text-muted-on-light">{label}</p>
     </div>
+  );
+}
+
+function Node({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "absolute z-10 flex h-6 w-6 items-center justify-center rounded-full border border-ink/15 bg-[var(--paper)] text-ink/35",
+        className
+      )}
+    >
+      <Plus className="h-3 w-3" />
+    </span>
+  );
+}
+
+function Connector({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn("absolute w-px border-l border-dashed border-ink/20", className)}
+    />
   );
 }
 
@@ -138,7 +171,7 @@ function DesktopVisual() {
   return (
     <div
       aria-hidden={false}
-      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[58%] lg:block xl:w-[54%]"
+      className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block xl:w-[54%]"
     >
       {/* thin warm wash right at the seam, so the photo's amber tone
           reads as a deliberate transition rather than a hard color cut */}
@@ -155,7 +188,7 @@ function DesktopVisual() {
       {/* decorative orbit ring, echoing the diagnostic-instrument motif */}
       <div
         aria-hidden
-        className="absolute left-[10%] top-[8%] -z-10 h-[62%] w-[62%] rounded-full border border-ink/10"
+        className="absolute left-[6%] top-[9%] -z-10 h-[58%] w-[58%] rounded-full border border-ink/10"
       />
 
       <div
@@ -176,41 +209,57 @@ function DesktopVisual() {
         />
       </div>
 
-      <RevealIn delay={1.9} className="absolute left-0 top-[54%] w-36 lg:pointer-events-auto xl:w-40">
+      {/* connector network: ₹50Cr+ -> nodes -> ₹6Cr+, and 20x -> node up top */}
+      <Connector className="left-[24%] top-[30%] h-[10%]" />
+      <Node className="left-[calc(24%-12px)] top-[35%]" />
+      <Connector className="left-[24%] top-[41%] h-[10%]" />
+      <Node className="left-[calc(24%-12px)] top-[51%]" />
+      <Connector className="right-[8%] top-0 h-[4%]" />
+      <Node className="right-[calc(8%-12px)] top-[3%]" />
+
+      <RevealIn delay={1.9} className="absolute left-[14%] top-[15%] w-36 lg:pointer-events-auto xl:w-40">
         <StatCard
-          icon={<PieChart className="h-4 w-4" />}
-          value="₹6Cr+"
-          label="Tracked client revenue"
+          icon={<BarChart3 className="h-4 w-4" />}
+          value="₹50Cr+"
+          label="Ad Spend Managed"
         />
       </RevealIn>
 
-      <RevealIn delay={2.1} className="absolute right-[6%] top-[6%] w-36 lg:pointer-events-auto xl:w-40">
+      <RevealIn delay={2.05} className="absolute right-[4%] top-[4%] w-36 lg:pointer-events-auto xl:w-40">
         <StatCard
-          icon={<BarChart3 className="h-4 w-4" />}
+          icon={<PieChart className="h-4 w-4" />}
           value="20x"
-          label="Peak ROAS delivered"
+          label="Peak ROAS Delivered"
         />
       </RevealIn>
 
       <RevealIn
-        delay={2.3}
-        className="absolute -right-2 top-[44%] w-36 lg:pointer-events-auto xl:w-40"
+        delay={2.2}
+        className="absolute right-0 top-[42%] w-36 lg:pointer-events-auto xl:w-40"
       >
         <StatCard
-          icon={<Building2 className="h-4 w-4" />}
-          value="20+"
-          label="Industries served"
+          icon={<Users className="h-4 w-4" />}
+          value="100+"
+          label="Brands & Businesses"
+        />
+      </RevealIn>
+
+      <RevealIn delay={2.35} className="absolute left-[13%] top-[52%] w-36 lg:pointer-events-auto xl:w-40">
+        <StatCard
+          icon={<PieChart className="h-4 w-4" />}
+          value="₹6Cr+"
+          label="Tracked Client Revenue"
         />
       </RevealIn>
 
       <RevealIn
         delay={2.5}
-        className="absolute right-[8%] bottom-[8%] w-36 lg:pointer-events-auto xl:w-40"
+        className="absolute right-[8%] bottom-[6%] w-36 lg:pointer-events-auto xl:w-40"
       >
         <StatCard
           icon={<TrendingUp className="h-4 w-4" />}
-          value="1,205"
-          label="Qualified leads, one programme"
+          value="20,000+"
+          label="Qualified Leads Generated"
         />
       </RevealIn>
     </div>
@@ -250,16 +299,42 @@ function MobilePortrait() {
 
 function MobileStats() {
   return (
-    <Reveal delay={0.1} className="mt-8 grid grid-cols-2 gap-3 lg:hidden">
-      {heroStats.map((stat) => (
+    <div className="mt-8 grid grid-cols-2 gap-3 lg:hidden">
+      {bottomStats.map((stat) => (
         <div key={stat.label} className="glass rounded-2xl px-4 py-3.5">
-          <p className="font-mono-data text-xl font-medium text-ink">
-            <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
-          </p>
-          <p className="mt-1 text-[11px] leading-snug text-muted-on-light">{stat.label}</p>
+          <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-signal/10 text-signal-ink">
+            <stat.icon className="h-4 w-4" />
+          </div>
+          <p className="font-display text-xl font-semibold text-ink">{stat.value}</p>
+          <p className="mt-0.5 text-[11px] leading-snug text-muted-on-light">{stat.label}</p>
         </div>
       ))}
-    </Reveal>
+    </div>
+  );
+}
+
+function BottomStatsBar() {
+  return (
+    <RevealIn
+      delay={2.7}
+      className="glass relative z-0 mt-14 hidden max-w-[min(56%,880px)] rounded-[2rem] px-7 py-6 lg:flex"
+    >
+      <div className="flex w-full items-center justify-between gap-5">
+        {bottomStats.map((stat) => (
+          <div key={stat.label} className="flex items-center gap-2.5">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-paper-dim text-ink/70">
+              <stat.icon className="h-[18px] w-[18px]" />
+            </span>
+            <span>
+              <span className="block font-display text-2xl font-semibold text-ink">
+                {stat.value}
+              </span>
+              <span className="block text-xs text-muted-on-light">{stat.label}</span>
+            </span>
+          </div>
+        ))}
+      </div>
+    </RevealIn>
   );
 }
 
@@ -355,6 +430,8 @@ export function Hero() {
 
           <MobileStats />
         </div>
+
+        <BottomStatsBar />
       </div>
     </section>
   );
