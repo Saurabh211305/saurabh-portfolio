@@ -3,9 +3,26 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
+import { AvatarCta } from "@/components/motion/AvatarCta";
+
+function LogoMark() {
+  return (
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-ink text-paper">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="12" r="6.5" stroke="currentColor" strokeWidth="1.6" />
+        <path
+          d="M12 2v4M12 18v4M2 12h4M18 12h4"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  );
+}
 
 const links = [
   { href: "/#case-studies", label: "Case Studies" },
@@ -45,13 +62,13 @@ export function Navbar() {
             : "bg-transparent"
         )}
       >
-        <Link
-          href="/"
-          className="font-display text-lg font-medium tracking-tight text-ink"
-        >
-          Saurabh Sharma
-          <span className="ml-2 text-eyebrow align-middle text-signal-ink">
-            The AdSurgeon
+        <Link href="/" className="flex items-center gap-2 sm:gap-3">
+          <LogoMark />
+          <span className="font-display text-base font-medium tracking-tight text-ink sm:text-lg">
+            Saurabh Sharma
+            <span className="ml-2 hidden text-eyebrow align-middle text-signal-ink sm:inline">
+              The AdSurgeon
+            </span>
           </span>
         </Link>
 
@@ -69,16 +86,7 @@ export function Navbar() {
         </ul>
 
         <div className="hidden md:block">
-          <Link
-            href="/contact"
-            data-cursor-text="Go"
-            className={cn(
-              "inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors",
-              "bg-signal-deep text-white hover:bg-signal-ink"
-            )}
-          >
-            Book a Call <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          <AvatarCta href="/contact" label="Book a call with me" size="sm" />
         </div>
 
         <button

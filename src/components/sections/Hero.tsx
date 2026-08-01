@@ -2,22 +2,26 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight, BarChart3, Building2, PieChart, Star, TrendingUp } from "lucide-react";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { AnimatedReticle } from "@/components/motion/AnimatedReticle";
 import { PremiumPill } from "@/components/motion/PremiumPill";
+import { AvatarCta } from "@/components/motion/AvatarCta";
 import { SplitIn } from "@/components/motion/SplitIn";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealIn } from "@/components/motion/RevealIn";
 import { Counter } from "@/components/motion/Counter";
 import { heroStats } from "@/data/metrics";
 import { registerGsap, gsap } from "@/lib/gsapSetup";
+import { cn } from "@/lib/utils";
 
 const proofInitials = ["RR", "PG", "YH", "AS"];
+const headlineLine =
+  "font-display text-[clamp(2.15rem,4.4vw,3.4rem)] font-medium leading-[1.08] text-ink";
 
 function AvailabilityBadge() {
   return (
-    <RevealIn delay={0.9}>
+    <RevealIn delay={0.8}>
       <span className="glass text-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2 text-signal-ink">
         <span className="relative flex h-1.5 w-1.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
@@ -30,61 +34,43 @@ function AvailabilityBadge() {
 }
 
 function Headline() {
-  const lineClass = "text-[clamp(1.05rem,1.7vw,1.4rem)] font-medium text-muted-on-light";
   return (
-    <div className="mt-8">
-      <SplitIn as="p" delay={1.15} className={lineClass}>
-        Hi, I&apos;m Saurabh.
+    <div className="mt-7">
+      <SplitIn as="h1" delay={1.0} className={headlineLine}>
+        Turning Ad Spend
       </SplitIn>
-      <SplitIn as="p" delay={1.3} className={cnLine(lineClass)}>
-        Clients call me
-      </SplitIn>
-      <RevealIn delay={1.5} className="mt-2">
-        <PremiumPill variant="dark">The AdSurgeon</PremiumPill>
-      </RevealIn>
-      <SplitIn as="p" delay={1.85} className={cnLine(lineClass, "mt-6")}>
-        Turning ad spend into
-      </SplitIn>
-      <RevealIn delay={2.05} className="mt-2">
-        <PremiumPill variant="signal" size="xl">
-          ₹250Cr+
-        </PremiumPill>
-      </RevealIn>
-      <SplitIn as="p" delay={2.5} className={cnLine(lineClass, "mt-4")}>
-        in measurable revenue.
-      </SplitIn>
+
+      <div className="mt-2 flex flex-wrap items-center gap-3">
+        <SplitIn as="span" delay={1.2} className={headlineLine}>
+          Into
+        </SplitIn>
+        <RevealIn delay={1.5}>
+          <PremiumPill variant="signal">₹250Cr+</PremiumPill>
+        </RevealIn>
+        <RevealIn delay={1.7}>
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white shadow-[0_12px_28px_-12px_rgba(1,11,19,0.3)] sm:h-14 sm:w-14">
+            <ArrowUpRight className="h-5 w-5 text-signal" />
+          </span>
+        </RevealIn>
+      </div>
+
+      <p className={cn(headlineLine, "mt-2")}>
+        <SplitIn as="span" delay={1.9}>
+          {"In "}
+        </SplitIn>
+        <SplitIn as="span" delay={2.05} className="text-signal-ink">
+          Measurable Revenue.
+        </SplitIn>
+      </p>
     </div>
   );
-}
-
-function cnLine(...parts: string[]) {
-  return parts.join(" ");
 }
 
 function PrimaryCta() {
   return (
     <MagneticButton>
       <div className="neu-raised rounded-full p-1.5">
-        <a
-          href="/contact"
-          className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-[linear-gradient(160deg,var(--ink-elevated)_0%,var(--ink)_70%)] py-2 pl-2 pr-5 text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_14px_30px_-14px_rgba(1,11,19,0.6)] transition-transform duration-300 ease-out hover:scale-[1.015]"
-        >
-          <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-white/15">
-            <Image
-              src="/images/portrait/saurabh-avatar.webp"
-              alt=""
-              fill
-              className="object-cover"
-              sizes="36px"
-            />
-          </span>
-          <span className="mx-0.5 text-white/40">+</span>
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-bold text-ink">
-            You
-          </span>
-          <span className="ml-1 whitespace-nowrap text-sm font-semibold">Book a Discovery Call</span>
-          <ArrowUpRight className="h-4 w-4 shrink-0 text-signal transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
+        <AvatarCta href="/contact" label="Book a call with me" size="lg" />
       </div>
     </MagneticButton>
   );
@@ -94,7 +80,7 @@ function SecondaryCta() {
   return (
     <a
       href="#case-studies"
-      className="group inline-flex flex-col gap-1.5 transition-transform duration-300 hover:-translate-y-0.5"
+      className="glass group flex flex-col gap-2 rounded-2xl px-5 py-3.5 transition-transform duration-300 hover:-translate-y-0.5"
     >
       <span className="flex items-center gap-3">
         <span className="flex -space-x-2.5">
@@ -106,6 +92,9 @@ function SecondaryCta() {
               {initial}
             </span>
           ))}
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-paper-dim text-[9px] font-bold text-ink ring-2 ring-[var(--paper)]">
+            +2
+          </span>
         </span>
         <span className="flex items-center gap-0.5 text-signal">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -113,16 +102,43 @@ function SecondaryCta() {
           ))}
         </span>
       </span>
-      <span className="text-base font-bold text-ink">6 Verified Case Studies</span>
+      <span className="text-sm font-bold text-ink">6 Verified Case Studies</span>
     </a>
   );
 }
 
-function DesktopPortrait() {
+function StatCard({
+  icon,
+  value,
+  label,
+  className,
+}: {
+  icon: React.ReactNode;
+  value: string;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "rounded-2xl border border-white/60 bg-[var(--paper)]/95 px-4 py-3.5 shadow-[0_18px_40px_-18px_rgba(1,11,19,0.4)] backdrop-blur-xl",
+        className
+      )}
+    >
+      <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-signal/10 text-signal-ink">
+        {icon}
+      </div>
+      <p className="font-display text-xl font-semibold text-ink sm:text-2xl">{value}</p>
+      <p className="mt-0.5 max-w-[9rem] text-[11px] leading-snug text-muted-on-light">{label}</p>
+    </div>
+  );
+}
+
+function DesktopVisual() {
   return (
     <div
       aria-hidden={false}
-      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[52%] lg:block xl:w-[48%]"
+      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[58%] lg:block xl:w-[54%]"
     >
       {/* thin warm wash right at the seam, so the photo's amber tone
           reads as a deliberate transition rather than a hard color cut */}
@@ -135,8 +151,15 @@ function DesktopPortrait() {
           filter: "blur(40px)",
         }}
       />
+
+      {/* decorative orbit ring, echoing the diagnostic-instrument motif */}
       <div
-        className="relative h-full w-full"
+        aria-hidden
+        className="absolute left-[10%] top-[8%] -z-10 h-[62%] w-[62%] rounded-full border border-ink/10"
+      />
+
+      <div
+        className="relative ml-auto h-full w-[86%]"
         style={{
           maskImage: "linear-gradient(to right, transparent 0%, black 15%)",
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%)",
@@ -149,16 +172,47 @@ function DesktopPortrait() {
           priority
           className="object-cover"
           style={{ objectPosition: "50% 12%" }}
-          sizes="48vw"
+          sizes="45vw"
         />
       </div>
-      <div className="glass absolute bottom-[6%] left-[10%] flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 lg:pointer-events-auto">
-        <span className="relative flex h-1.5 w-1.5 shrink-0">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
-        </span>
-        <span className="font-mono-data text-xs text-ink">20x Peak ROAS</span>
-      </div>
+
+      <RevealIn delay={1.9} className="absolute left-0 top-[54%] w-36 lg:pointer-events-auto xl:w-40">
+        <StatCard
+          icon={<PieChart className="h-4 w-4" />}
+          value="₹6Cr+"
+          label="Tracked client revenue"
+        />
+      </RevealIn>
+
+      <RevealIn delay={2.1} className="absolute right-[6%] top-[6%] w-36 lg:pointer-events-auto xl:w-40">
+        <StatCard
+          icon={<BarChart3 className="h-4 w-4" />}
+          value="20x"
+          label="Peak ROAS delivered"
+        />
+      </RevealIn>
+
+      <RevealIn
+        delay={2.3}
+        className="absolute -right-2 top-[44%] w-36 lg:pointer-events-auto xl:w-40"
+      >
+        <StatCard
+          icon={<Building2 className="h-4 w-4" />}
+          value="20+"
+          label="Industries served"
+        />
+      </RevealIn>
+
+      <RevealIn
+        delay={2.5}
+        className="absolute right-[8%] bottom-[8%] w-36 lg:pointer-events-auto xl:w-40"
+      >
+        <StatCard
+          icon={<TrendingUp className="h-4 w-4" />}
+          value="1,205"
+          label="Qualified leads, one programme"
+        />
+      </RevealIn>
     </div>
   );
 }
@@ -194,6 +248,21 @@ function MobilePortrait() {
   );
 }
 
+function MobileStats() {
+  return (
+    <Reveal delay={0.1} className="mt-8 grid grid-cols-2 gap-3 lg:hidden">
+      {heroStats.map((stat) => (
+        <div key={stat.label} className="glass rounded-2xl px-4 py-3.5">
+          <p className="font-mono-data text-xl font-medium text-ink">
+            <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
+          </p>
+          <p className="mt-1 text-[11px] leading-snug text-muted-on-light">{stat.label}</p>
+        </div>
+      ))}
+    </Reveal>
+  );
+}
+
 export function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -223,7 +292,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="section-light relative flex min-h-[100svh] flex-col justify-end overflow-hidden pt-32"
+      className="section-light relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-32 pb-16"
     >
       <div
         aria-hidden
@@ -252,7 +321,7 @@ export function Hero() {
       <AnimatedReticle
         size={40}
         delay={0.5}
-        className="pointer-events-none absolute left-[6%] top-10 hidden text-ink/25 md:block"
+        className="pointer-events-none absolute left-[6%] top-24 hidden text-ink/25 md:block"
       />
 
       <span
@@ -262,41 +331,30 @@ export function Hero() {
         PRECISION MARKETING SYSTEMS
       </span>
 
-      <DesktopPortrait />
+      <DesktopVisual />
 
-      <div className="container-fluid relative pb-16">
-        <div className="relative max-w-xl lg:max-w-lg xl:max-w-xl">
+      <div className="container-fluid relative">
+        <div className="relative max-w-xl lg:max-w-md xl:max-w-lg">
           <MobilePortrait />
 
           <AvailabilityBadge />
           <Headline />
 
-          <RevealIn delay={2.7}>
-            <p className="mt-8 max-w-md text-lg text-muted-on-light">
-              Performance marketing strategist helping real estate, hospitality,
-              healthcare, and high-growth brands scale with Google Ads, Meta
-              Ads, CRO, and AI-driven marketing systems.
+          <RevealIn delay={2.25}>
+            <p className="mt-6 max-w-md text-lg text-muted-on-light">
+              I build performance marketing systems that drive real business
+              growth for real estate, hospitality, healthcare and high-growth
+              brands.
             </p>
           </RevealIn>
 
-          <RevealIn delay={2.85} className="mt-10 flex flex-wrap items-center gap-4">
+          <RevealIn delay={2.4} className="mt-9 flex flex-wrap items-center gap-4">
             <PrimaryCta />
             <SecondaryCta />
           </RevealIn>
-        </div>
 
-        <Reveal delay={3.05} className="glass relative z-10 mt-16 rounded-3xl p-6 sm:p-8 lg:max-w-2xl">
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {heroStats.map((stat) => (
-              <div key={stat.label} className="neu-inset rounded-2xl px-4 py-5 text-center sm:text-left">
-                <p className="font-mono-data text-2xl font-medium text-ink sm:text-3xl">
-                  <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
-                </p>
-                <p className="mt-2 text-xs leading-snug text-muted-on-light">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+          <MobileStats />
+        </div>
       </div>
     </section>
   );
