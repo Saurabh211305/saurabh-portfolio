@@ -37,8 +37,8 @@
 
   /* Neumorphism shadow pair — warm-toned (not neutral gray) to match the
      cream base, used sparingly via .neu-raised / .neu-inset. */
-  --neu-light: rgba(255, 255, 255, 0.9);
-  --neu-dark: rgba(120, 94, 42, 0.16);
+  --neu-light: rgba(255, 255, 255, 0.95);
+  --neu-dark: rgba(120, 94, 42, 0.24);
 }
 
 @theme inline {
@@ -206,6 +206,60 @@ body {
   box-shadow:
     inset 4px 4px 10px var(--neu-dark),
     inset -4px -4px 10px var(--neu-light);
+}
+
+/* Small circular neumorphic badge for icons inside glass cards — a soft
+   extrusion in the same paper tone, so the icon looks pressed into the
+   surface rather than sitting in a flat tinted square. */
+.neu-icon {
+  background: var(--paper);
+  box-shadow:
+    3px 3px 7px var(--neu-dark),
+    -3px -3px 7px var(--neu-light);
+}
+
+/* Elevated glass surface (as opposed to .glass's pill/badge use) — for
+   floating data cards. Needs a colored surface *behind* it (a blurred
+   gradient orb) to actually read as glass; on a flat matte background
+   backdrop-filter has nothing to refract and just looks like a plain
+   translucent card. */
+.glass-card {
+  background: rgba(255, 255, 245, 0.58);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 24px 48px -24px rgba(1, 11, 19, 0.38);
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.45s ease;
+}
+.glass-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 245, 0.7);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 30px 56px -22px rgba(1, 11, 19, 0.44);
+}
+
+/* Same glass treatment tuned for dark/ink surfaces (over the portrait). */
+.glass-card-dark {
+  background: rgba(10, 16, 22, 0.42);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 24px 48px -20px rgba(1, 11, 19, 0.55);
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.45s ease;
+}
+.glass-card-dark:hover {
+  transform: translateY(-4px);
+  background: rgba(10, 16, 22, 0.54);
 }
 
 /* Faint diagnostic grid backdrop */

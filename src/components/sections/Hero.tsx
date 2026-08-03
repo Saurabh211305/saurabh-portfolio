@@ -129,17 +129,31 @@ function StatCard({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "rounded-[20px] border border-white/60 bg-card-white p-8 shadow-[0_18px_40px_-18px_rgba(1,11,19,0.4)]",
-        className
-      )}
-    >
-      <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-signal/10 text-signal-ink">
+    <div className={cn("glass-card rounded-[20px] p-6", className)}>
+      <div className="neu-icon mb-3 flex h-9 w-9 items-center justify-center rounded-full text-signal-ink">
         {icon}
       </div>
       <p className="font-display text-xl font-semibold text-ink sm:text-2xl">{value}</p>
       <p className="mt-0.5 text-[11px] leading-snug text-muted-on-light">{label}</p>
+    </div>
+  );
+}
+
+function GlowField() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div
+        className="absolute -top-24 right-[6%] h-[420px] w-[420px] rounded-full opacity-[0.16] blur-[110px]"
+        style={{ background: "var(--warm-glow)" }}
+      />
+      <div
+        className="absolute top-[38%] right-[-4%] h-[360px] w-[360px] rounded-full opacity-[0.14] blur-[110px]"
+        style={{ background: "var(--signal)" }}
+      />
+      <div
+        className="absolute -bottom-32 -left-16 h-[440px] w-[440px] rounded-full opacity-[0.12] blur-[130px]"
+        style={{ background: "var(--warm-glow)" }}
+      />
     </div>
   );
 }
@@ -171,7 +185,7 @@ function DesktopVisual() {
   return (
     <div
       aria-hidden={false}
-      className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block xl:w-[54%]"
+      className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-[58%] xl:block xl:w-[54%]"
     >
       {/* decorative orbit ring, echoing the diagnostic-instrument motif */}
       <div
@@ -180,10 +194,10 @@ function DesktopVisual() {
       />
 
       <div
-        className="relative ml-auto h-full w-[86%]"
+        className="relative ml-auto h-full w-[86%] overflow-hidden rounded-[28px]"
         style={{
-          maskImage: "linear-gradient(to right, transparent 0%, black 15%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%)",
+          maskImage: "linear-gradient(to right, transparent 0%, black 30%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 30%)",
         }}
       >
         <Image
@@ -195,6 +209,22 @@ function DesktopVisual() {
           style={{ objectPosition: "78% 15%" }}
           sizes="45vw"
         />
+        {/* warm rim glow along the mask edge — sells the "glass display" read */}
+        <div
+          aria-hidden
+          className="absolute inset-0 mix-blend-overlay"
+          style={{
+            background:
+              "linear-gradient(115deg, var(--signal-deep) 0%, transparent 22%, transparent 78%, var(--warm-glow) 100%)",
+            opacity: 0.16,
+          }}
+        />
+        {/* thin glass instrument-frame border, echoing the reticle motif */}
+        <div
+          aria-hidden
+          className="absolute inset-[5%] rounded-[20px] border border-white/25"
+          style={{ boxShadow: "0 1px 0 rgba(255,255,255,0.15) inset" }}
+        />
       </div>
 
       {/* connector network: ₹50Cr+ -> nodes -> ₹6Cr+, and 20x -> node up top */}
@@ -205,7 +235,7 @@ function DesktopVisual() {
       <Connector className="right-[8%] top-0 h-[4%]" />
       <Node className="right-[calc(8%-12px)] top-[3%]" />
 
-      <RevealIn delay={1.9} className="absolute left-[14%] top-[15%] w-[150px] lg:pointer-events-auto">
+      <RevealIn delay={1.9} className="absolute left-[14%] top-[15%] w-[150px] xl:pointer-events-auto">
         <StatCard
           icon={<BarChart3 className="h-4 w-4" />}
           value="₹50Cr+"
@@ -213,7 +243,7 @@ function DesktopVisual() {
         />
       </RevealIn>
 
-      <RevealIn delay={2.05} className="absolute right-[4%] top-[4%] w-[150px] lg:pointer-events-auto">
+      <RevealIn delay={2.05} className="absolute right-[4%] top-[4%] w-[150px] xl:pointer-events-auto">
         <StatCard
           icon={<PieChart className="h-4 w-4" />}
           value="20x"
@@ -223,7 +253,7 @@ function DesktopVisual() {
 
       <RevealIn
         delay={2.2}
-        className="absolute right-0 top-[42%] w-[150px] lg:pointer-events-auto"
+        className="absolute right-0 top-[42%] w-[150px] xl:pointer-events-auto"
       >
         <StatCard
           icon={<Users className="h-4 w-4" />}
@@ -232,7 +262,7 @@ function DesktopVisual() {
         />
       </RevealIn>
 
-      <RevealIn delay={2.35} className="absolute left-[13%] top-[52%] w-[150px] lg:pointer-events-auto">
+      <RevealIn delay={2.35} className="absolute left-[13%] top-[52%] w-[150px] xl:pointer-events-auto">
         <StatCard
           icon={<PieChart className="h-4 w-4" />}
           value="₹6Cr+"
@@ -242,7 +272,7 @@ function DesktopVisual() {
 
       <RevealIn
         delay={2.5}
-        className="absolute right-[8%] bottom-[6%] w-[150px] lg:pointer-events-auto"
+        className="absolute right-[8%] bottom-[6%] w-[150px] xl:pointer-events-auto"
       >
         <StatCard
           icon={<TrendingUp className="h-4 w-4" />}
@@ -256,30 +286,46 @@ function DesktopVisual() {
 
 function MobilePortrait() {
   return (
-    <RevealIn delay={0.4} className="relative -mx-[clamp(1.25rem,5vw,5rem)] mb-8 lg:hidden">
-      <div
-        className="relative aspect-[4/5] w-full"
-        style={{
-          maskImage: "linear-gradient(to bottom, black 82%, transparent 99%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 82%, transparent 99%)",
-        }}
-      >
-        <Image
-          src="/images/portrait/saurabh-mobile.webp"
-          alt="Saurabh Sharma, The AdSurgeon, in his studio"
-          fill
-          priority
-          className="object-cover"
-          style={{ objectPosition: "80% 15%" }}
-          sizes="100vw"
+    <RevealIn delay={0.4} className="relative mb-6 xl:hidden">
+      <div className="relative overflow-hidden rounded-[24px]">
+        <div
+          className="relative aspect-[4/5] w-full"
+          style={{
+            maskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
+          }}
+        >
+          <Image
+            src="/images/portrait/saurabh-mobile.webp"
+            alt="Saurabh Sharma, The AdSurgeon, in his studio"
+            fill
+            priority
+            className="object-cover"
+            style={{ objectPosition: "80% 15%" }}
+            sizes="(max-width: 1024px) 92vw, 45vw"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 mix-blend-overlay"
+            style={{
+              background:
+                "linear-gradient(200deg, var(--signal-deep) 0%, transparent 26%, transparent 74%, var(--warm-glow) 100%)",
+              opacity: 0.16,
+            }}
+          />
+        </div>
+        <div
+          aria-hidden
+          className="absolute inset-[3%] rounded-[18px] border border-white/20"
+          style={{ boxShadow: "0 1px 0 rgba(255,255,255,0.15) inset" }}
         />
       </div>
-      <div className="glass absolute bottom-10 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2">
+      <div className="glass-card-dark absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5">
         <span className="relative flex h-1.5 w-1.5 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
         </span>
-        <span className="font-mono-data text-xs text-ink">20x Peak ROAS</span>
+        <span className="font-mono-data text-xs text-[var(--paper)]">20x Peak ROAS</span>
       </div>
     </RevealIn>
   );
@@ -287,10 +333,10 @@ function MobilePortrait() {
 
 function MobileStats() {
   return (
-    <div className="mt-8 grid grid-cols-2 gap-3 lg:hidden">
+    <div className="mt-8 grid grid-cols-2 gap-3 xl:hidden">
       {bottomStats.map((stat) => (
-        <div key={stat.label} className="glass rounded-2xl px-4 py-3.5">
-          <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-signal/10 text-signal-ink">
+        <div key={stat.label} className="glass-card rounded-2xl px-4 py-3.5">
+          <div className="neu-icon mb-2.5 flex h-8 w-8 items-center justify-center rounded-full text-signal-ink">
             <stat.icon className="h-4 w-4" />
           </div>
           <p className="font-display text-xl font-semibold text-ink">{stat.value}</p>
@@ -305,19 +351,27 @@ function BottomStatsBar() {
   return (
     <RevealIn
       delay={2.7}
-      className="relative z-0 mt-14 hidden max-w-[min(56%,880px)] rounded-[20px] border border-white/60 bg-card-white p-8 shadow-[0_18px_40px_-18px_rgba(1,11,19,0.4)] lg:flex"
+      className="glass-card relative z-0 mt-14 hidden max-w-[min(56%,880px)] rounded-[22px] p-2 xl:flex"
     >
-      <div className="flex w-full items-center justify-between gap-6">
-        {bottomStats.map((stat) => (
-          <div key={stat.label} className="flex items-center gap-2.5">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-paper-dim text-ink/70">
+      <div className="flex w-full items-stretch justify-between">
+        {bottomStats.map((stat, i) => (
+          <div
+            key={stat.label}
+            className={cn(
+              "flex flex-1 items-center gap-3 px-5 py-5",
+              i > 0 && "border-l border-ink/[0.06]"
+            )}
+          >
+            <span className="neu-inset flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-signal-ink">
               <stat.icon className="h-[18px] w-[18px]" />
             </span>
             <span>
               <span className="block font-display text-2xl font-semibold text-ink">
                 {stat.value}
               </span>
-              <span className="block text-xs text-muted-on-light">{stat.label}</span>
+              <span className="block text-xs leading-snug text-muted-on-light">
+                {stat.label}
+              </span>
             </span>
           </div>
         ))}
@@ -365,11 +419,7 @@ export function Hero() {
             "radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--signal) 5%, transparent), transparent 60%)",
         }}
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-40 -left-20 h-[480px] w-[480px] rounded-full opacity-[0.05] blur-[140px]"
-        style={{ background: "var(--warm-glow)" }}
-      />
+      <GlowField />
       <div
         ref={bgRef}
         aria-hidden
@@ -389,7 +439,7 @@ export function Hero() {
 
       <span
         aria-hidden
-        className="text-index pointer-events-none absolute bottom-10 right-8 hidden -rotate-90 origin-bottom-right whitespace-nowrap text-[0.65rem] tracking-[0.3em] text-ink/25 lg:block"
+        className="text-index pointer-events-none absolute bottom-10 right-8 hidden -rotate-90 origin-bottom-right whitespace-nowrap text-[0.65rem] tracking-[0.3em] text-ink/25 xl:block"
       >
         PRECISION MARKETING SYSTEMS
       </span>
