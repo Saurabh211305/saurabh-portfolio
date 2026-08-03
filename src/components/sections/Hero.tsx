@@ -202,21 +202,15 @@ function DesktopVisual() {
         className="absolute left-[6%] top-[9%] -z-10 h-[58%] w-[58%] rounded-full border border-ink/10"
       />
 
-      <div
-        className="relative ml-auto h-full w-[86%] overflow-hidden rounded-[28px]"
-        style={{
-          maskImage: "linear-gradient(to right, transparent 0%, black 30%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 30%)",
-        }}
-      >
+      <div className="absolute bottom-0 right-[3%] w-[62%]">
         <Image
-          src="/images/portrait/saurabh-desktop.webp"
-          alt="Saurabh Sharma, The AdSurgeon, in his studio"
-          fill
+          src="/images/portrait/saurabh-headshot.png"
+          alt="Saurabh Sharma, The AdSurgeon"
+          width={1052}
+          height={1027}
           priority
-          className="object-cover"
-          style={{ objectPosition: "78% 15%" }}
-          sizes="45vw"
+          className="h-auto w-full"
+          sizes="34vw"
         />
       </div>
 
@@ -281,26 +275,18 @@ function DesktopVisual() {
 function MobilePortrait() {
   return (
     <RevealIn delay={0.4} className="relative mb-6 xl:hidden">
-      <div className="relative overflow-hidden rounded-[24px]">
-        <div
-          className="relative aspect-[4/5] w-full"
-          style={{
-            maskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
-          }}
-        >
-          <Image
-            src="/images/portrait/saurabh-mobile.webp"
-            alt="Saurabh Sharma, The AdSurgeon, in his studio"
-            fill
-            priority
-            className="object-cover"
-            style={{ objectPosition: "80% 15%" }}
-            sizes="(max-width: 1024px) 92vw, 45vw"
-          />
-        </div>
+      <div className="relative aspect-[4/5] w-full">
+        <Image
+          src="/images/portrait/saurabh-headshot.png"
+          alt="Saurabh Sharma, The AdSurgeon"
+          fill
+          priority
+          className="object-contain"
+          style={{ objectPosition: "50% 100%" }}
+          sizes="(max-width: 1024px) 92vw, 45vw"
+        />
       </div>
-      <div className="glass-card-dark absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5">
+      <div className="glass-card-dark absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5">
         <span className="relative flex h-1.5 w-1.5 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-75" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
