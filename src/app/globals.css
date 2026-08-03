@@ -17,6 +17,13 @@
   --muted-on-dark: #8f8f96;
   --muted-on-light: #55555c;
 
+  /* Hero-specific neutrals from the client's mockup — a warm off-white
+     canvas (not the saturated --paper yellow) with muted-tan icon badges,
+     scoped to Hero rather than changed globally. */
+  --hero-canvas: #f7f4ee;
+  --badge-tan: #efe9df;
+  --badge-tan-ink: #8a7c67;
+
   /* Incision red — a single accent, three contrast-tuned roles (see README):
      --signal: bright, decorative + large text + dark-bg text (4.7:1 on ink).
      --signal-deep: button backgrounds with white labels — the client's exact
@@ -208,6 +215,15 @@ body {
     inset -4px -4px 10px var(--neu-light);
 }
 
+/* Same inset gauge, tuned to the mockup's muted-tan neutral instead of
+   the yellow --paper tone (used on the Hero bottom instrument bar). */
+.neu-inset-tan {
+  background: var(--badge-tan);
+  box-shadow:
+    inset 4px 4px 10px rgba(120, 94, 42, 0.14),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.9);
+}
+
 /* Small circular neumorphic badge for icons inside glass cards — a soft
    extrusion in the same paper tone, so the icon looks pressed into the
    surface rather than sitting in a flat tinted square. */
@@ -216,6 +232,15 @@ body {
   box-shadow:
     3px 3px 7px var(--neu-dark),
     -3px -3px 7px var(--neu-light);
+}
+
+/* Same badge, tuned to the mockup's muted-tan icon circles instead of the
+   yellow --paper tone (used on the Hero stat cards). */
+.neu-icon-tan {
+  background: var(--badge-tan);
+  box-shadow:
+    3px 3px 7px rgba(120, 94, 42, 0.14),
+    -3px -3px 7px rgba(255, 255, 255, 0.9);
 }
 
 /* Elevated glass surface (as opposed to .glass's pill/badge use) — for

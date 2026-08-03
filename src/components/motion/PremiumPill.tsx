@@ -34,7 +34,7 @@ export function PremiumPill({ children, variant, size = "lg", className }: Premi
           variant === "dark" &&
             "bg-[linear-gradient(160deg,var(--ink-elevated)_0%,var(--ink)_65%)] text-white shadow-[0_1px_0_rgba(255,255,255,0.14)_inset,0_14px_32px_-14px_rgba(1,11,19,0.6)]",
           variant === "signal" &&
-            "bg-[linear-gradient(160deg,var(--signal)_0%,var(--signal-deep)_70%)] text-white shadow-[0_1px_0_rgba(255,255,255,0.22)_inset,0_16px_36px_-12px_rgba(171,21,9,0.55)]"
+            "bg-[linear-gradient(160deg,var(--signal-deep)_0%,var(--signal-ink)_75%)] text-white shadow-[0_1px_0_rgba(255,255,255,0.18)_inset,0_16px_36px_-12px_rgba(138,16,6,0.6)]"
         )}
       >
         <span

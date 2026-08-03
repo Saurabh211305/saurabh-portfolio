@@ -3,7 +3,6 @@
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import {
-  ArrowUpRight,
   BarChart3,
   Globe,
   PieChart,
@@ -63,7 +62,7 @@ function Headline() {
         </RevealIn>
         <RevealIn delay={1.7}>
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-off-white shadow-[0_12px_28px_-12px_rgba(1,11,19,0.3)] sm:h-14 sm:w-14">
-            <ArrowUpRight className="h-5 w-5 text-signal" />
+            <TrendingUp className="h-5 w-5 text-signal" />
           </span>
         </RevealIn>
       </div>
@@ -83,7 +82,10 @@ function Headline() {
 function PrimaryCta() {
   return (
     <MagneticButton>
-      <div className="neu-raised rounded-full p-1.5">
+      <div
+        className="neu-raised rounded-full p-1.5"
+        style={{ background: "var(--hero-canvas)" }}
+      >
         <AvatarCta href="/contact" label="Book a call with me" size="lg" />
       </div>
     </MagneticButton>
@@ -100,12 +102,12 @@ function SecondaryCta() {
         {proofInitials.map((initial) => (
           <span
             key={initial}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white ring-2 ring-[var(--paper)]"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white ring-2 ring-[var(--hero-canvas)]"
           >
             {initial}
           </span>
         ))}
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[9px] font-bold text-white ring-2 ring-[var(--paper)]">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[9px] font-bold text-white ring-2 ring-[var(--hero-canvas)]">
           +95
         </span>
       </span>
@@ -121,16 +123,23 @@ function StatCard({
   icon,
   value,
   label,
+  accent = false,
   className,
 }: {
   icon: React.ReactNode;
   value: string;
   label: string;
+  accent?: boolean;
   className?: string;
 }) {
   return (
     <div className={cn("glass-card rounded-[20px] p-6", className)}>
-      <div className="neu-icon mb-3 flex h-9 w-9 items-center justify-center rounded-full text-signal-ink">
+      <div
+        className={cn(
+          "neu-icon-tan mb-3 flex h-9 w-9 items-center justify-center rounded-full",
+          accent ? "text-signal" : "text-[var(--badge-tan-ink)]"
+        )}
+      >
         {icon}
       </div>
       <p className="font-display text-xl font-semibold text-ink sm:text-2xl">{value}</p>
@@ -143,15 +152,15 @@ function GlowField() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div
-        className="absolute -top-24 right-[6%] h-[420px] w-[420px] rounded-full opacity-[0.16] blur-[110px]"
+        className="absolute -top-24 right-[6%] h-[420px] w-[420px] rounded-full opacity-[0.08] blur-[110px]"
         style={{ background: "var(--warm-glow)" }}
       />
       <div
-        className="absolute top-[38%] right-[-4%] h-[360px] w-[360px] rounded-full opacity-[0.14] blur-[110px]"
+        className="absolute top-[38%] right-[-4%] h-[360px] w-[360px] rounded-full opacity-[0.08] blur-[110px]"
         style={{ background: "var(--signal)" }}
       />
       <div
-        className="absolute -bottom-32 -left-16 h-[440px] w-[440px] rounded-full opacity-[0.12] blur-[130px]"
+        className="absolute -bottom-32 -left-16 h-[440px] w-[440px] rounded-full opacity-[0.06] blur-[130px]"
         style={{ background: "var(--warm-glow)" }}
       />
     </div>
@@ -163,7 +172,7 @@ function Node({ className }: { className?: string }) {
     <span
       aria-hidden
       className={cn(
-        "absolute z-10 flex h-6 w-6 items-center justify-center rounded-full border border-ink/15 bg-[var(--paper)] text-ink/35",
+        "absolute z-10 flex h-6 w-6 items-center justify-center rounded-full border border-ink/15 bg-[var(--hero-canvas)] text-ink/35",
         className
       )}
     >
@@ -208,22 +217,6 @@ function DesktopVisual() {
           className="object-cover"
           style={{ objectPosition: "78% 15%" }}
           sizes="45vw"
-        />
-        {/* warm rim glow along the mask edge — sells the "glass display" read */}
-        <div
-          aria-hidden
-          className="absolute inset-0 mix-blend-overlay"
-          style={{
-            background:
-              "linear-gradient(115deg, var(--signal-deep) 0%, transparent 22%, transparent 78%, var(--warm-glow) 100%)",
-            opacity: 0.16,
-          }}
-        />
-        {/* thin glass instrument-frame border, echoing the reticle motif */}
-        <div
-          aria-hidden
-          className="absolute inset-[5%] rounded-[20px] border border-white/25"
-          style={{ boxShadow: "0 1px 0 rgba(255,255,255,0.15) inset" }}
         />
       </div>
 
@@ -278,6 +271,7 @@ function DesktopVisual() {
           icon={<TrendingUp className="h-4 w-4" />}
           value="20,000+"
           label="Qualified Leads Generated"
+          accent
         />
       </RevealIn>
     </div>
@@ -304,21 +298,7 @@ function MobilePortrait() {
             style={{ objectPosition: "80% 15%" }}
             sizes="(max-width: 1024px) 92vw, 45vw"
           />
-          <div
-            aria-hidden
-            className="absolute inset-0 mix-blend-overlay"
-            style={{
-              background:
-                "linear-gradient(200deg, var(--signal-deep) 0%, transparent 26%, transparent 74%, var(--warm-glow) 100%)",
-              opacity: 0.16,
-            }}
-          />
         </div>
-        <div
-          aria-hidden
-          className="absolute inset-[3%] rounded-[18px] border border-white/20"
-          style={{ boxShadow: "0 1px 0 rgba(255,255,255,0.15) inset" }}
-        />
       </div>
       <div className="glass-card-dark absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5">
         <span className="relative flex h-1.5 w-1.5 shrink-0">
@@ -336,7 +316,7 @@ function MobileStats() {
     <div className="mt-8 grid grid-cols-2 gap-3 xl:hidden">
       {bottomStats.map((stat) => (
         <div key={stat.label} className="glass-card rounded-2xl px-4 py-3.5">
-          <div className="neu-icon mb-2.5 flex h-8 w-8 items-center justify-center rounded-full text-signal-ink">
+          <div className="neu-icon-tan mb-2.5 flex h-8 w-8 items-center justify-center rounded-full text-[var(--badge-tan-ink)]">
             <stat.icon className="h-4 w-4" />
           </div>
           <p className="font-display text-xl font-semibold text-ink">{stat.value}</p>
@@ -351,7 +331,7 @@ function BottomStatsBar() {
   return (
     <RevealIn
       delay={2.7}
-      className="glass-card relative z-0 mt-14 hidden max-w-[min(56%,880px)] rounded-[22px] p-2 xl:flex"
+      className="glass-card relative z-0 mt-14 hidden max-w-[min(70%,1010px)] rounded-[22px] p-2 xl:flex"
     >
       <div className="flex w-full items-stretch justify-between">
         {bottomStats.map((stat, i) => (
@@ -362,7 +342,7 @@ function BottomStatsBar() {
               i > 0 && "border-l border-ink/[0.06]"
             )}
           >
-            <span className="neu-inset flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-signal-ink">
+            <span className="neu-inset-tan flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[var(--badge-tan-ink)]">
               <stat.icon className="h-[18px] w-[18px]" />
             </span>
             <span>
@@ -409,7 +389,8 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="section-light relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-32 pb-16"
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-32 pb-16 text-ink"
+      style={{ background: "var(--hero-canvas)" }}
     >
       <div
         aria-hidden
